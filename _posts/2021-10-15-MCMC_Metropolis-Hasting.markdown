@@ -154,8 +154,8 @@ Acceptance가 1보다 작. 이는 식 5의 중간변을에서 변수가 이동�
 * Step 2: 다음 확률변수($\theta_{new}$)를 $Q(.)$을 통해 임의로 설정한다.
 * Step 3: 식 5를 통해 Acceptance를 계산한다.
 * Step 4: Acceptance를 1과 비교한다.
-     * Case 1이면 $\theta_{new} \leftarrow \theta_{new}$
-     * Case 2이면 $\theta_{new} \leftarrow \theta_{old}$
+     * Case 1이면 $\theta_{old} \leftarrow \theta_{new}$
+     * Case 2이면 $\theta_{old} \leftarrow \theta_{old}$
 * Step 5: Step2~4까지 충분히 반복
 
 <br/> 
