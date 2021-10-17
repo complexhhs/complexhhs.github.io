@@ -58,3 +58,10 @@ theme: plainwhite
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+
+# Math equation
+markdonw: kramdown
+highlighter: rouge
+lsi: false
+excerpt_seperator: "\n\n"
+incremental: false
