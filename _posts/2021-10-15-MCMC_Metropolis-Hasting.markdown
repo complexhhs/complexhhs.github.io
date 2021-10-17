@@ -3,6 +3,8 @@ layout: post
 title:  "MCMC & Metropolis-Hasting sampling"
 date:   2021-10-18 00:21:36 +0530
 categories: Python MachineLearning
+use_math: true
+comments: true
 ---
 
 <br/>전통적인 머신러닝 기법으로 *MCMC, Gaussian Process*, 그리고 *EM-method*에 관해서 시간이 날때마다 정리해보고자 한다.
