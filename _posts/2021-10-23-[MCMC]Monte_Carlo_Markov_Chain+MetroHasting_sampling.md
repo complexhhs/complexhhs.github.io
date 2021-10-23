@@ -101,7 +101,7 @@ $$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1}).$$(3)
 
 식 3에서 우리는 이상적인 상황에서만 $T$에 대한 정보를 모두 가지고 있지만, 그렇지 못한 현실에서 $T$를 다음과 같이 분리해서 생각한다.
 
- $$T({x}\rightarrow{y}) = Q({x}\rightarrow{y})A({x}\rightarrow{y}).$$(4) 
+ $$T(x{\rightarrow}y) = Q(x{\rightarrow}y)A(x{\rightarrow}y).$$(4) 
  
 식 4의 L.H.S는 우리가 이상적으로 알고 싶은 상태변화 확률, R.H.S의 $Q$는 $x\rightarrow{y}$로 이동할지 말지 제안하는 임의의 제안함수(proposal distribution), $A$는 $x\rightarrow{y}$가 합당한지 평가하는 지표 Critic이다.
 
@@ -109,7 +109,7 @@ $$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1}).$$(3)
 
 식 4를 식 3에 대입하여 식을 변형시킬수 있다. 그 변형시킬 식의 목표는 $x\rightarrow{y}$가 Detailed balance를 통해 합당한지 평가하는 Acceptance($\alpha$)를 구하는 것이다.
 
-$$\alpha={{A(x\rightarrow{y})}\over{A(y\rightarrow{x})}}={{P(y)Q(y\rightarrow{x})}\over{P(x)Q(x\rightarrow{y})}}.$$(5)
+$$\alpha={{A(x{\rightarrow}y)}\over{A(y{\rightarrow}x)}}={{P(y)Q(y{\rightarrow}x)}\over{P(x)Q(x{\rightarrow}y)}}.$$(5)
 
 
 * Case 1: $\alpha \geq 1$
@@ -128,8 +128,8 @@ Acceptance가 1보다 작. 이는 식 5의 중간변을에서 변수가 이동�
 * Step 2: 다음 확률변수($\theta_{new}$)를 $Q(.)$을 통해 임의로 설정한다.
 * Step 3: 식 5를 통해 Acceptance를 계산한다.
 * Step 4: Acceptance를 1과 비교한다.
-     * Case 1이면 $\theta_{old} \leftarrow \theta_{new}$
-     * Case 2이면 $\theta_{old} \leftarrow \theta_{old}$
+     * Case 1이면 $\theta_{old} {\leftarrow} \theta_{new}$
+     * Case 2이면 $\theta_{old} {\leftarrow} \theta_{old}$
 * Step 5: Step2~4까지 충분히 반복
 
 필자가 간단하게 만들어본 Metropolis-Hasting algorithm 예제를 같이 살펴보도록 하자.
