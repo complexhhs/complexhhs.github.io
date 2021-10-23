@@ -101,7 +101,7 @@ $$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1}).$$(3)
 
 식 3에서 우리는 이상적인 상황에서만 $T$에 대한 정보를 모두 가지고 있지만, 그렇지 못한 현실에서 $T$를 다음과 같이 분리해서 생각한다.
 
- $$T(x{\rightarrow}y) = Q(x{\rightarrow}y)A(x{\rightarrow}y).$$(4) 
+$$T(x{\rightarrow}y) = Q(x{\rightarrow}y)A(x{\rightarrow}y).$$(4) 
  
 식 4의 L.H.S는 우리가 이상적으로 알고 싶은 상태변화 확률, R.H.S의 $Q$는 $x\rightarrow{y}$로 이동할지 말지 제안하는 임의의 제안함수(proposal distribution), $A$는 $x\rightarrow{y}$가 합당한지 평가하는 지표 Critic이다.
 
