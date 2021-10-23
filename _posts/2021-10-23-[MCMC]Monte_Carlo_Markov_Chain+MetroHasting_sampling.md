@@ -24,7 +24,7 @@ ${0}\leq {x}	\leq {1}$, $	{0}\leq {y}	\leq {1}$ 영역에서 사분원 공간을
 
 우리가 산개시켜버린 점의 개수($N_{total}$)를 알고, 사분원 공간안에 있는 점의 개수($N_{red}$), 그리고 사분원 공간 바깥에 있는 점의 개수($N_{blue}$)를 잘조합시키면 아래 근사 관계식이 만들어진다.
 
-$${{\pi}\over{4}} \approx {{N_{red}}\over{N_{total}}}.$$(1)
+$${\pi}\over{4} \approx {{N_{red}}\over{N_{total}}}.$$(1)
 $$P(\theta) = {{N_{red}}\over{N_{total}}}.$$(2)
 
 
@@ -132,21 +132,16 @@ Acceptance가 1보다 작. 이는 식 5의 중간변을에서 변수가 이동�
      * Case 2이면 $\theta_{old} \leftarrow \theta_{old}$
 * Step 5: Step2~4까지 충분히 반복
 
-<br/> 
-<br/> 
 필자가 간단하게 만들어본 Metropolis-Hasting algorithm 예제를 같이 살펴보도록 하자.
-<br/> 
 
 [MetroPolis-Hasting 튜토리얼 코드](https://github.com/complexhhs/ML_basic_concept/blob/main/MCMC_Metropolis-Hasting.ipynb).
 
-<br/> 
 <img src="https://user-images.githubusercontent.com/40904225/137219477-41dbc0bf-cb41-4246-a252-1ea7e2535ec1.png",width=500,height=500>
-<br/>
+
 튜토리얼 코드니까 1D의 쉬운예제로 세팅했다. 우리는 위와 같은 분포의 확률분포값을 샘플링해서 구체적인 값을 얻고 싶다. 필자는 위 확률분포를 어떻게 세팅해서 정확히 얼마의 확률 값이다! 라고 말할 수 있지만 그게 현실상 불가능하기에 근사방식인 MCMC중 Metropolis-Hasting 알고리즘을 이용해 위 문제를 해결할 것이다. 그림을 놓고 보자면 대략 $x=3$위치에서 확률분포가 크게 나타나므로 많이 샘플링이 될 것으로 추정된다. 
-<br/> 
-<br/>
+ 
 붉은색 별표의 $x$좌표가 확률변수의 값, $y$좌표가 해당하는 샘플링 확률 $P(x)$이다. 대략 8% 되는 함수값이 된다.
-<br/>
+
 이제, Metropolis-Hasting 함수를 코드로 작성해보자.
 
 ```python
@@ -173,9 +168,7 @@ def Metropolis_Hasting(x_old,x_new,function):
     return result
 ```
 
-<br/> 
 함수코드의 입력 인자는 순서대로 현재의 확률변수 위치$\theta_{old}$, 제안된 확률변수 위치$\theta_{new}$, 그리고 각 확률변수의 확률값을 구해줄 함수 혹은 시스템인 function이다. num, den변수가 acceptance($\alpha$)를 구하기 위한 준비물로, 필자는 np.random.normal $\leftarrow$ Gaussian distribution을 이용해 $Q(.)$를 제안해주었다.
-<br/>
 
 나머지 부분은 알고리즘의 흐름대로 작성하면 끝이다. 이제 MH함수를 이용하는 샘플링 코드는 다음과 같다.
 
@@ -192,24 +185,21 @@ for i in range(iter_num):
     x_new = np.random.normal(x_old,dev)
 ```
 
-<br/>
 5000번을 반복 샘플링을 한다. 매 반복 차시마다 x_new라는 변수를 Gaussian distribution을 이용하여 새 위치로 제안해주었는데 독자 여러분은 알고 있는 특이한 확률분포를 이용해서 다른 방식으로 시도해봐도 재미있을 것이다.
-<br/>
+
 <img src="https://user-images.githubusercontent.com/40904225/137221128-5bddb053-b4e1-4ab1-a903-dbca248b7392.png",width=500,height=500>
-<br/>
+
 이렇게 해서 얻은 샘플링값의 그림이다. 확률분포의 꼭대기, 즉 확률이 가장 높은 영역에서 샘플링된 횟수가 가장 많으며, 마지막으로 샘플링된 확률 변수값은 $x=3.1406407759393016$이다. 얼추 예상한 바대로 샘플링이 잘되었는가?
-<br/>
-<br/>
+
+
 이렇게 얻은 $\theta$를 머신러닝의 사전지식, 파라미터라고 생각해보면 주어진 데이터를 많이 관찰하여 제일 그럴싸한 확률분포를 가지는 변수로 추론을 한다고 여기면 될것이다. 제안된 임의의 함수를 평가하고 자신의 사전지식을 개량하는 방식으로 직관적으로 생각하면 된다.
-<br/>
-<br/>
-<br/>
+
 
 ### 맺음말
-<br/>
+
 지금까지 우리가 원하는 확률분포 $P(\theta)$를 구하는 전략으로 MCMC방법과 그 구체적인 샘플링 방식으로 Metropolis-Hasting 알고리즘을 살펴보았다. 이 전략들은 사전지식과 주어진 데이터를 이용하여 사전지식을 바꾸는 베이지안 통계방식의 대표적인 예시이다. 
-<br/>
+
 다음 포스팅에서는 회귀분석에서 쉽게 적용될수있는 Gaussian Process에 대해서 살펴보도록 하겠다. 혹시 설명이 이해가 안되거나 애매한 부분이 있으면 적극적으로 댓글을 달아준다면 더 없이 고맙겠다!
-<br/>
-<br/>
-<br/> + Markdown문법에서는 Pseudo code를 작성하는 방법이 없나보다. 조금 맘에 들지 않는다.
+
+
++ Markdown문법에서는 Pseudo code를 작성하는 방법이 없나보다. 조금 맘에 들지 않는다.
