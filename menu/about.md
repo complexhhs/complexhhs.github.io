@@ -1,19 +1,20 @@
 ---
 layout: page
-title: Welcome to Lagrange!
+title: Welcome to Hyunseok Hwang!
 permalink: /about
 ---
 
-Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.
+본 블로그는 인공지능 연구가 Hyunseok, Hwang의 ML연구 기록들의 아카이브입니다. 블로그를 방문해주시고 괜찮은 아이디어를 같이 공유해주시거나 좋게 배운 부분이 있다거나 등등 어떤 느낌을 받았는지 자유롭게 공유해주시면 매우 감사하겠습니다!
 
-### Getting Started
+### Github 주소
 
-[Getting Started]({{ site.github.url }}{% post_url 2015-10-10-getting-started %}): getting started with installing Lagrange, whether you are completely new to using Jekyll, or simply just migrating to a new Jekyll theme.
+[complexhhs github]({{ github.com/complexhhs }}): Hyunseok Hwang의 git repository저장소입니다. 아직까지 대단한 아이템들은 없으나 많이많이 연구하고 기록해서 뚱뚱하고 양질의 repository로 만들어 보겠습니다!
 
-### Example Content
+### CLASS 101
 
-[Text and Formatting]({{ site.github.url }}{% post_url 2014-01-01-text-formatting-examples %})
+[CLASS 101]({{ https://class101.app/e/sVojNzLEQ2hHM99g8Qun }}): Hyunseok Hwang이 운영하고 있는 CLASS 101강의 입니다. pytorch와 ML에 대해서 처음이라면 해당 class를 수강해주시면 감사하겠습니다.
+
 
 ### Questions?
 
-This theme is completely free and open source software. You may use it however you want, as it is distributed under the [MIT License](http://choosealicense.com/licenses/mit/). If you are having any problems, any questions or suggestions, feel free to [tweet at me](https://twitter.com/intent/tweet?text=My%question%about%Lagrange%is:%&amp;via=paululele), or [file a GitHub issue](https://github.com/lenpaul/lagrange/issues/new).
+질문이 있으시면 블로그 포스팅에 댓글을 남겨주셔도 괜찮고 본인의 신분이 노출되기 싫으시면 [메일주소](http://choosealicense.com/licenses/mit/)를 통해 개인적으로 질문을 주시면 감사하겠습니다. 비지니스, 연구, 기타 등등 재미있는 것들이 있으면 같이 공유해주시면 더욱 감사하겠습니다.
