@@ -106,15 +106,15 @@ $$\alpha=\frac{A(x{\rightarrow}y)}{A(y{\rightarrow}x)}=\frac{P(y)Q(y{\rightarrow
 
 여기까지 *MH sampling* 방식을 알고리즘으로 정리를 하면 다음과 같습니다.
 
-```
-Step 1: 초기 확률변수($\theta_{old}$)를 설정한다
-Step 2: 다음 확률변수($\theta_{new}$)를 $Q(.)$을 통해 임의로 설정한다.
-Step 3: 식 5를 통해 Acceptance를 계산한다.
-Step 4: Acceptance를 1과 비교한다.
-     Case 1이면 $\theta_{old} {\leftarrow} \theta_{new}$
-     Case 2이면 $\theta_{old} {\leftarrow} \theta_{old}$
-Step 5: Step2~4까지 충분히 반복
-```
+
+* Step 1: 초기 확률변수($\theta_{old}$)를 설정한다
+* Step 2: 다음 확률변수($\theta_{new}$)를 $Q(.)$을 통해 임의로 설정한다.
+* Step 3: 식 5를 통해 Acceptance를 계산한다.
+* Step 4: Acceptance를 1과 비교한다.
+  * Case 1이면 $\theta_{old} {\leftarrow} \theta_{new}$
+  * Case 2이면 $\theta_{old} {\leftarrow} \theta_{old}$
+* Step 5: Step2~4까지 충분히 반복
+
 
 필자가 간단하게 만들어본 Metropolis-Hasting algorithm 예제를 같이 살펴보도록 합시다.
 
