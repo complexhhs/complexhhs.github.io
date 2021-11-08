@@ -8,11 +8,11 @@ permalink: /about
 
 ### Github 주소
 
-[complexhhs github]({{ github.com/complexhhs }}): Hyunseok Hwang의 git repository저장소입니다. 아직까지 대단한 아이템들은 없으나 많이많이 연구하고 기록해서 뚱뚱하고 양질의 repository로 만들어 보겠습니다!
+[complexhhs github](github.com/complexhhs): Hyunseok Hwang의 git repository저장소입니다. 아직까지 대단한 아이템들은 없으나 많이많이 연구하고 기록해서 뚱뚱하고 양질의 repository로 만들어 보겠습니다!
 
 ### CLASS 101
 
-[CLASS 101]({{ https://class101.app/e/sVojNzLEQ2hHM99g8Qun }}): Hyunseok Hwang이 운영하고 있는 CLASS 101강의 입니다. pytorch와 ML에 대해서 처음이라면 해당 class를 수강해주시면 감사하겠습니다.
+[CLASS 101](https://class101.app/e/sVojNzLEQ2hHM99g8Qun): Hyunseok Hwang이 운영하고 있는 CLASS 101강의 입니다. pytorch와 ML에 대해서 처음이라면 해당 class를 수강해주시면 감사하겠습니다.
 
 
 ### Questions?
