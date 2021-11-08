@@ -18,13 +18,13 @@ image: cards.jpg
 
 ${0}\leq {x}	\leq {1}$, $	{0}\leq {y}	\leq {1}$ 영역에서 사분원 공간을 잡아넣고 임의로 점을 확 산개시켜버린다고 가정해봅시다.
 
-<img src="https://user-images.githubusercontent.com/40904225/137301783-79a9a17f-c66c-4036-aeda-c2c4e0f2af17.png",width=500,height=500>
+<img src="https://user-images.githubusercontent.com/40904225/140754446-e18dcb54-ebce-4438-93f0-c82498b30bf9.png",width=500,height=500>
 
 우리가 산개시켜버린 점의 개수($N_{total}$)를 알고, 사분원 공간안에 있는 점의 개수($N_{red}$), 그리고 사분원 공간 바깥에 있는 점의 개수($N_{blue}$)를 잘조합시키면 아래 근사 관계식이 만들어집니다.
 
-$${\frac}{\pi}{4} \approx {\frac}{N_{red}}{N_{total}}}.$$(1)
+$$\frac{\pi}{4} \approx {\frac}{N_{red}}{N_{total}}}$$.(1)
 
-$$P(\theta) = {{N_{red}}\over{N_{total}}}.$$(2)
+$$P(\theta) = \frac{N_{red}{N_{total}}$$.(2)
 
 식 1번의 L.H.S는 단위 사분면의 면적과 동일합니다. 반면, R.H.S는 균일하게 뿌린 점중에서 사분면 안에 들어온 점의 비율입니다. 여기서, 점들을 적게 뿌린다면 식 1번의 수식의 근사의 정확도는 표본의 수가 적기때문에 신뢰도가 높지 않게됩니다. 100개의 점으로 샘플링을 해보면 $\pi \approx 3.0$ 정도로 계산되지만, 10000개의 점으로 샘플링을 하면 $\pi \approx 3.1228$로 결과를 구합니다.
 이렇게 특정한 값을 구하는데 샘플링 확률 $P(\theta)$을 이용하여 근사식을 이용하는 방식을 일컬어 **Monte Carlo method**라고 부릅니다. 
@@ -37,7 +37,7 @@ $$P(\theta) = {{N_{red}}\over{N_{total}}}.$$(2)
 
 이 개념 역시, 예제와 함께 살펴보도록 합시다.
 
-<img src="https://user-images.githubusercontent.com/40904225/137162277-30ca26d7-cb8c-4ab2-a693-47bb88fe0e85.png",width=500,height=500>
+<img src="https://user-images.githubusercontent.com/40904225/140754645-4d18c322-3ee5-4169-8348-3d653e64c464.png",width=500,height=500>
 
 (필자의 엉성한 실력으로 만든 그림이지만 이쁘게 봐주길 바랍니다^^;;)연못에 연꽃이 두개가 있고, 그 안에 개구리가 있는 상황입니다.
 
@@ -85,17 +85,17 @@ MCMC의 대표적인 샘플링 방식인 **Metropolis-Hasting(MH)** 방식을 �
 
 MH방식을 바로 설명하기 이전에 개념을 쉽게 알기 위해 선행지식인 *Detailed balance*의 개념을 알아야 합니다.
 
-$$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1}).$$(3)
+$$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1})$$.(3)
 
 식 3에서 우리는 이상적인 상황에서만 $T$에 대한 정보를 모두 가지고 있지만, 그렇지 못한 현실에서의 $T$를 다음과 같이 분리해서 생각해보겠습니다.
 
-$$T({x}\rightarrow{y}) = Q({x}\rightarrow{y})A({x}\rightarrow{y}).$$(4) 
+$$T({x}\rightarrow{y}) = Q({x}\rightarrow{y})A({x}\rightarrow{y})$$.(4) 
 
 식 4의 L.H.S는 우리가 이상적으로 알고 싶은 상태변화 확률, R.H.S의 $Q$는 $x\rightarrow{y}$로 이동할지 말지 제안하는 임의의 제안함수(proposal distribution), $A$는 $x\rightarrow{y}$가 합당한지 평가하는 지표 Critic입니다.
 노파심에 덧붙이자면 Proposal distribution은 '다음 위치로 탐험할지 안할지' 말 그대로 제안하는 확률분포 입니다. 즉, 사용자가 Gaussian distribution, Beta distribution, Gamma distribution등 다양한 확률분포가 여기에 대입 시킬 수 있습니다.
 이제, 식 4를 식 3에 대입하여 식을 변형시킬수 있습니다. 그 변형시킬 식의 목표는 $x\rightarrow{y}$가 Detailed balance를 통해 합당한지 평가하는 Acceptance($\alpha$)입니다.
 
-$$\alpha=\frac{A(x{\rightarrow}y)}{A(y{\rightarrow}x)}=\frac{P(y)Q(y{\rightarrow}x)}{P(x)Q(x{\rightarrow}y)}.$$(5)
+$$\alpha=\frac{A(x{\rightarrow}y)}{A(y{\rightarrow}x)}=\frac{P(y)Q(y{\rightarrow}x)}{P(x)Q(x{\rightarrow}y)}$$.(5)
 
 * Case 1: $\alpha \geq 1$
   *   Acceptance가 1보다 큽니다. 이는 식 5의 중간변을에서 변수가 이동하는 방향이 $x\rightarrow{y}$에 친화적인 말과 같습니다. 즉, 다음 차시에서는 제안함수를 받아들여 확률변수를 $y$로 변화시켜 샘플링을 합니다.
@@ -119,7 +119,7 @@ Step 5: Step2~4까지 충분히 반복
 
 [MetroPolis-Hasting 튜토리얼 코드](https://github.com/complexhhs/ML_basic_concept/blob/main/MCMC_Metropolis-Hasting.ipynb).
 
-<img src="https://user-images.githubusercontent.com/40904225/137219477-41dbc0bf-cb41-4246-a252-1ea7e2535ec1.png",width=500,height=500>
+<img src="https://user-images.githubusercontent.com/40904225/140755019-69610837-7ed5-4805-92f6-ce64a38983ba.png",width=500,height=500>
 
 튜토리얼 코드니까 1D의 쉬운예제로 세팅했습니다. 
 우리는 위와 같은 분포의 확률분포값을 샘플링해서 구체적인 값을 얻고 싶습니다. 
@@ -175,7 +175,7 @@ for i in range(iter_num):
 5000번을 반복 샘플링을 합니다.. 
 매 반복 차시마다 x_new라는 변수를 Gaussian distribution을 이용하여 새 위치로 제안해주었는데 독자 여러분은 알고 있는 특이한 확률분포를 이용해서 다른 방식으로 시도해봐도 재미있겠습니다.
 
-<img src="https://user-images.githubusercontent.com/40904225/137221128-5bddb053-b4e1-4ab1-a903-dbca248b7392.png",width=500,height=500>
+<img src="https://user-images.githubusercontent.com/40904225/140755091-8f65ca47-1f58-4906-9c81-9482dc5f4b35.png",width=500,height=500>
 
 이렇게 해서 얻은 샘플링값의 그림입니다. 
 확률분포의 꼭대기, 즉 확률이 가장 높은 영역에서 샘플링된 횟수가 가장 많으며, 마지막으로 샘플링된 확률 변수값은 $x=3.1406407759393016$입니다. 
