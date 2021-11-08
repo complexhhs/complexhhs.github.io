@@ -4,4 +4,4 @@ title: Contact
 permalink: /contact
 ---
 
-If you are having any problems, any questions or suggestions, feel free to [tweet at me](https://twitter.com/intent/tweet?text=%40paululele), or [file a GitHub issue](https://github.com/lenpaul/lagrange/issues/new)
+문의사항, 질문 혹은 기타 더 알고싶은 것이 있다면 언제든지 저에게 [메일](complexhhs@gmail.com), 혹은 [Github page](https://github.com/complexhhs)를 통하여 주시기 바랍니다.
