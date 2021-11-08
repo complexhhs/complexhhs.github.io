@@ -23,7 +23,7 @@ ${0}\leq {x}	\leq {1}$, $	{0}\leq {y}	\leq {1}$ 영역에서 사분원 공간을
 우리가 산개시켜버린 점의 개수($N_{total}$)를 알고, 사분원 공간안에 있는 점의 개수($N_{red}$), 
 그리고 사분원 공간 바깥에 있는 점의 개수($N_{blue}$)를 잘조합시키면 아래 근사 관계식이 만들어집니다.
 
-$$\frac{\pi}{4} \approx \frac{N_{red}}{N_{total}}}$$.(1)
+$$\frac{\pi}{4} \approx \frac{N_{red}}{N_{total}}$$.(1)
 
 $$ P(\theta) = \frac{N_{red}}{N_{total}}$$.(2)
 
