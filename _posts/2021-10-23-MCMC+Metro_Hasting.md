@@ -89,13 +89,13 @@ $$P(S_1)T({S_1}\rightarrow{S_2})=P(S_2)T({S_2}\rightarrow{S_1}).$$(3)
 
 식 3에서 우리는 이상적인 상황에서만 $T$에 대한 정보를 모두 가지고 있지만, 그렇지 못한 현실에서의 $T$를 다음과 같이 분리해서 생각해보겠습니다.
 
-$$T(x{\rightarrow}y) = Q(x{\rightarrow}y)A(x{\rightarrow}y).$$(4) 
+$$T({x}\rightarrow{y}) = Q({x}\rightarrow{y})A({x}\rightarrow{y}).$$(4) 
 
 식 4의 L.H.S는 우리가 이상적으로 알고 싶은 상태변화 확률, R.H.S의 $Q$는 $x\rightarrow{y}$로 이동할지 말지 제안하는 임의의 제안함수(proposal distribution), $A$는 $x\rightarrow{y}$가 합당한지 평가하는 지표 Critic입니다.
 노파심에 덧붙이자면 Proposal distribution은 '다음 위치로 탐험할지 안할지' 말 그대로 제안하는 확률분포 입니다. 즉, 사용자가 Gaussian distribution, Beta distribution, Gamma distribution등 다양한 확률분포가 여기에 대입 시킬 수 있습니다.
 이제, 식 4를 식 3에 대입하여 식을 변형시킬수 있습니다. 그 변형시킬 식의 목표는 $x\rightarrow{y}$가 Detailed balance를 통해 합당한지 평가하는 Acceptance($\alpha$)입니다.
 
-$$\alpha={{A(x{\rightarrow}y)}\over{A(y{\rightarrow}x)}}={{P(y)Q(y{\rightarrow}x)}\over{P(x)Q(x{\rightarrow}y)}}.$$(5)
+$$\alpha=\frac{A(x{\rightarrow}y)}{A(y{\rightarrow}x)}=\frac{P(y)Q(y{\rightarrow}x)}{P(x)Q(x{\rightarrow}y)}.$$(5)
 
 * Case 1: $\alpha \geq 1$
   *   Acceptance가 1보다 큽니다. 이는 식 5의 중간변을에서 변수가 이동하는 방향이 $x\rightarrow{y}$에 친화적인 말과 같습니다. 즉, 다음 차시에서는 제안함수를 받아들여 확률변수를 $y$로 변화시켜 샘플링을 합니다.
