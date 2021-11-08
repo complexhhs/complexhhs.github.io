@@ -18,7 +18,7 @@ image: cards.jpg
 
 ${0}\leq {x}	\leq {1}$, $	{0}\leq {y}	\leq {1}$ 영역에서 사분원 공간을 잡아넣고 임의로 점을 확 산개시켜버린다고 가정해봅시다.
 
-![원주율 구하기]("https://user-images.githubusercontent.com/40904225/140754446-e18dcb54-ebce-4438-93f0-c82498b30bf9.png",width=500,height=500,"원주율 구하기")
+![원주율 구하기](https://user-images.githubusercontent.com/40904225/140754446-e18dcb54-ebce-4438-93f0-c82498b30bf9.png,width=500,height=500,"원주율 구하기")
 
 우리가 산개시켜버린 점의 개수($N_{total}$)를 알고, 사분원 공간안에 있는 점의 개수($N_{red}$), 
 그리고 사분원 공간 바깥에 있는 점의 개수($N_{blue}$)를 잘조합시키면 아래 근사 관계식이 만들어집니다.
@@ -38,7 +38,7 @@ $$ P(\theta) = {\frac}{N_{red}}{N_{total}}$$.(2)
 
 이 개념 역시, 예제와 함께 살펴보도록 합시다.
 
-![연꽃위의 개구리]("https://user-images.githubusercontent.com/40904225/140754645-4d18c322-3ee5-4169-8348-3d653e64c464.png",width=500,height=500,"연꽃위 개")
+![연꽃위의 개구리](https://user-images.githubusercontent.com/40904225/140754645-4d18c322-3ee5-4169-8348-3d653e64c464.png,"연꽃위 개")
 
 (필자의 엉성한 실력으로 만든 그림이지만 이쁘게 봐주길 바랍니다^^;;)연못에 연꽃이 두개가 있고, 그 안에 개구리가 있는 상황입니다.
 
@@ -120,7 +120,7 @@ Step 5: Step2~4까지 충분히 반복
 
 [MetroPolis-Hasting 튜토리얼 코드](https://github.com/complexhhs/ML_basic_concept/blob/main/MCMC_Metropolis-Hasting.ipynb).
 
-![MCMC샘플링 환경]("https://user-images.githubusercontent.com/40904225/140755019-69610837-7ed5-4805-92f6-ce64a38983ba.png",width=500,height=500,"")
+![MCMC샘플링 환경](https://user-images.githubusercontent.com/40904225/140755019-69610837-7ed5-4805-92f6-ce64a38983ba.png,"샘플링 ")
 
 튜토리얼 코드니까 1D의 쉬운예제로 세팅했습니다. 
 우리는 위와 같은 분포의 확률분포값을 샘플링해서 구체적인 값을 얻고 싶습니다. 
@@ -176,7 +176,7 @@ for i in range(iter_num):
 5000번을 반복 샘플링을 합니다.. 
 매 반복 차시마다 x_new라는 변수를 Gaussian distribution을 이용하여 새 위치로 제안해주었는데 독자 여러분은 알고 있는 특이한 확률분포를 이용해서 다른 방식으로 시도해봐도 재미있겠습니다.
 
-![MH 샘플링 결과]("https://user-images.githubusercontent.com/40904225/140755091-8f65ca47-1f58-4906-9c81-9482dc5f4b35.png",width=500,height=500,"샘플링 결과")
+![MH 샘플링 결과](https://user-images.githubusercontent.com/40904225/140755091-8f65ca47-1f58-4906-9c81-9482dc5f4b35.png,"샘플링 결과")
 
 이렇게 해서 얻은 샘플링값의 그림입니다. 
 확률분포의 꼭대기, 즉 확률이 가장 높은 영역에서 샘플링된 횟수가 가장 많으며, 마지막으로 샘플링된 확률 변수값은 $x=3.1406407759393016$입니다. 
