@@ -37,7 +37,7 @@ $$   \mathcal{N}({x} | \mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^{2}}}exp\left(-\f
 
 ![2d normal distiribution](https://user-images.githubusercontent.com/40904225/144858913-92541f79-c381-4e02-9448-bae36ba7b6a3.png)
 
-$$  \mathcal{N}({X} | \mu,\Sigma) = \frac{1}{{2\pi}^{d/2}}|\Sigma|^{-1/2}exp\left(-\frac{1}{2}(X-\mu)|\Sigma|^{-1}(X-\mu)^T   \right). $$ (2)
+$$  \mathcal{N}({X} | \mu,\Sigma) = \frac{1}{{(2 \pi)}^{d/2}}{|\Sigma|}^{-1/2}exp\left(-\frac{1}{2}(X-\mu)|\Sigma|^{-1}(X-\mu)^T   \right). $$ (2)
 
 다차원의 gaussian distribution은 조금 생소할수 있다. 무엇이든 차원을 확장하는 첫 단계가 생소하고 어렵듯 1D에서 2D로 넘어가는 과정도 조금 어색할지도 모르겠다. 함수 형태가 볼록하고 펴지고 하는 모습들은 1D에서의 형태와 크게 다를바가 없다. 다만, 변수 $X$와, 평균 $\mu$는 여기에서 $d$차원의 벡터이며, 분산(정확히 공분산행렬) $\Sigma$은 $d \times d$행렬이 된다. 공분산 행렬은 입력변수의 차원간의 상관관계를 표현한 분산으로 자세한 개념은 [Andrew Ng 교수님의 강의](https://www.youtube.com/watch?v=JjB58InuTqM)를 참조하면 좋겠다.
 
