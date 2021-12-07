@@ -4,6 +4,7 @@ title: "[GP]Gaussian Process _ Kernel"
 author: "Hyunseok, Hwang"
 categories: journal
 tags: [documentation,sample]
+images: cards.jpg
 ---
 
 이번 포스팅은 베이지안 방식을 기반으로한 회귀분석 풀이법 중 하나인 **Gaussian Process**을 다룬다. 
@@ -303,6 +304,7 @@ def gaussian_process(x0, x_data, y_data):
 
 - Step 4. 추론시작
 이제 구현한 ***Gaussian_process***함수를 이용해서 우리가 원하고자 하는 목표값과 분산값을 동시에 추론한다.
+
 ```python
 y_infer, y_std = [],[]
 for x0 in x:
@@ -316,6 +318,7 @@ y_std = np.asarray(y_std).ravel()
 
 지금까지 결과는 ```y_infer```, ```y_std```변수에 저장되어있으므로 우리가 육안으로 볼 수 있도록 플롯팅 한다.
 불확정성 정도는 95%의 신뢰구간을 사용하도록 1.96 sigma값을 사용한다.
+
 ```python
 plt.figure(figsize=(10,8))
 plt.plot(x,y,label='True curve')
@@ -325,6 +328,7 @@ plt.fill_between(x, y_infer-1.96*y_std, y_infer+1.96*y_std, alpha=0.3, color='gr
 plt.grid()
 plt.legend()
 ```
+
 ![image](https://user-images.githubusercontent.com/40904225/144884197-a9c5566a-e989-4a83-8ddc-b2393d5818a0.png)
 
 데이터가 있는 구간에서는 Machine이 확실하게 추론하여 불확정영역(녹색)이 거의 없으며, 주어진 데이터로부터 목표 추론값이 멀리 떨어질수록 불확정성 정도가 매우 크게 나타나는 것이 보인다. 신기한 점은, 단 4개의 포인트를 가지고 GP추론을 수행했는데 아주 살짝 구간에서 휘어졌다는 것을 보고서 Machine이 곡선의 사인파의 곡률을 추론했다는 점을 주목하기 바란다! 저런 수식과 단순한 데이터 4개의 포인트로 저런 정보를 추론하기엔 사람은 쉽사리 생각해보긴 어려울 것이다. 더불어 해당 문제에서는 추론값이 목표치에 아주 정확하지는 않더라도 불확정 영역안에 값들이 적중했다는 점은 상당히 고무적인 결과로 받아들이기에 충분하다고 생각한다.
