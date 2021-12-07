@@ -107,14 +107,16 @@ $$\begin{align}p(f(x) \vert f(x_1),f(x_2),...f(x_n)) &= \frac{p\left(f(x), f(x_1
 &=\frac{\mathcal{N}\left(f(x), f(x_1), f(x_2)...f(x_n) \vert 0,\tilde{C}  \right)}{\mathcal{N}\left( f(x_1), f(x_2)...f(x_n) \vert 0,C  \right)} \\
 &=\mathcal{N}\left(f(x) \vert {\mu},{\sigma}^2   \right)\end{align}.$$ (10)
 
-$where,$\begin{equation*} \qquad \\
+$where,$
+
+$$\begin{equation*} \\
 c=\begin{pmatrix} 
 K(x_1,x_1) & K(x_1,x_2) & \cdots & K(x_1,x_n) \\
 K(x_2,x_1) & K(x_2,x_2) & \cdots & K(x_2,x_n) \\
 \vdots  & \vdots  & \ddots & \vdots  \\
 K(x_n,x_1) & K(x_n,x_2) & \cdots & K(x_n,x_n) \\
 \end{pmatrix}, 
-\end{equation*}
+\end{equation*}$$
 
 
 $$\begin{equation*} \\
@@ -148,6 +150,7 @@ K(x,x_n)
 수식의 전개과정이 나름 복잡할수 있지만 전 과정을 다 생략하고 우리가 관심있어하는 부분인 $\mu$와 $\sigma$값을 정리하면 다음과 같이 쓸 수 있다. 
 
 $$\mu = K^TC^{-1}f .$$ (11)
+
 $$\sigma^{2} = K(0)-K^TC^{-1}K . $$ (12)
 
 $where,$
