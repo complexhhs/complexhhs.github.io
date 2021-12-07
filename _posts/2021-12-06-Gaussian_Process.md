@@ -4,7 +4,7 @@ title: "[GP]Gaussian Process _ Kernel"
 author: "Hyunseok, Hwang"
 categories: journal
 tags: [documentation,sample]
-image: cards.jpg
+image: 
 ---
 
 이번 포스팅은 베이지안 방식을 기반으로한 회귀분석 풀이법 중 하나인 **Gaussian Process**을 다룬다. 
