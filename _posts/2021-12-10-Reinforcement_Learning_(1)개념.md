@@ -6,7 +6,7 @@ categories: journal
 tags: [documentation,sample]
 ---
 
-글을 쓰고있는 지금 재직하고 있는 회사에서 포커스를 두는 분야는 아니지만 한때 Reinforcement Learning에 대해서 많은 관심을 가지고 깊이까지는 아니지만 짤막하게 공부를 했었고다. [이전 포스팅](https://complexhhs.github.io/MixRL_%EB%A6%AC%EB%B7%B0)에서 다룬 연구가 Reinforcement Learning을 응용한 바, 이전에 필자가 공부했던 RL도 정리해야 겠다는 필요성을 느꼈다. 그래서 RL의 기본 내용과 DQN, A2C까지의 알고리즘을 차차 진행해보고자 한다. 
+글을쓰는 지금 재직하고 있는 회사에서 포커스를 두는 분야는 아니지만 한때 Reinforcement Learning에 대해서 많은 관심을 가지고 깊이까지는 아니지만 짤막하게 공부를 했었고다. [이전 포스팅](https://complexhhs.github.io/MixRL_%EB%A6%AC%EB%B7%B0)에서 다룬 연구가 Reinforcement Learning을 응용한 바, 이전에 필자가 공부했던 RL도 정리해야 겠다는 필요성을 느꼈다. 그래서 RL의 기본 내용과 DQN, A2C까지의 알고리즘을 차차 진행해보고자 한다. 
 첫번째 여정으로 RL의 기본개념 부터 정리하겠다.
 
 # Reinforcement의 기본요소
