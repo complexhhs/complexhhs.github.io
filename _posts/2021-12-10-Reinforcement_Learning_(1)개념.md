@@ -87,7 +87,7 @@ $$\begin{align} q_{\pi}(s,a) &= \mathbb{E}_{\pi}[G_t\vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma \left( {R_{t+2}}+\gamma{R_{t+3}}\cdots \right) \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma  G_{t+1} \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma  q_{\pi}(S_{t+1},A_{t+1})  \vert S_t=s, A_t=a] \\
-\end{align}.$$(6)
+\end{align}.$$(7)
 
 # Reinforcement Learning API
 
