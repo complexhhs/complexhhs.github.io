@@ -49,9 +49,12 @@ $$\begin{align} G_{t}&=R_{t+1}+\gamma{R_{t+2}}+\gamma^2{R_{t+3}}\cdots \\
 
 다시 1만원을 가지고 점심으로 해결하는 상황, 주식을 사는 상황을 비교해보자. 각자마다 다를 순 있겠지만 점심을 먹는다는 보상은 +1, 주식을 구매하는 보상도 +1이라고 동일하게 놓고 최종보상 $G_t$ return을 계산해보자. 
 - [$\gamma=0$]  점심식사를 선택한 agent의 $G_t$ 
+
 $$\begin{align}G_t &= R_{t+1}+\gamma{R_{t+2}} \\
 &=1+0{\times}0. \end{align}$$ (2)  
+
 - [$\gamma=0.99$] 주식구매를 선택한 agent의 $G_t$
+
 $$\begin{align}G_t &= R_{t+1}+{\gamma}R_{t+2}\\
 &=0+0.99{\times}1. \end{align}$$ (3)  
 
@@ -86,7 +89,7 @@ $$\begin{align} q_{\pi}(s,a) &= \mathbb{E}_{\pi}[G_t\vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma \left( {R_{t+2}}+\gamma{R_{t+3}}\cdots \right) \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma  G_{t+1} \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma  q_{\pi}(S_{t+1},A_{t+1})  \vert S_t=s, A_t=a] \\
-\end{align}.$$(5)
+\end{align}.$$(6)
 
 # Reinforcement Learning API
 
