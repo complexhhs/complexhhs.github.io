@@ -13,7 +13,8 @@ tags: [documentation,sample]
 
 Supervised learning, Unsupervised learning은 각각 {data,label}, {data}라는 확률분포를 이용해서 인공지능을 사람이 원하는 방식대로 학습하는 방식을 채택한다. 즉, 그 방식이 DNN처럼 parameteric 방식을 사용하던 [Gaussian Process](https://complexhhs.github.io/Gaussian_Process)처럼 Non-parameteric method를 사용하던간에 $P(x)$에 의해서 학습의 결과가 좌지우지 되는 학습방식이다.
 
-![RL 기본개념도]()
+![출처: Reinforcement Learning: An Introduction, Richard S. sutton & Andrew G.Barto](https://user-images.githubusercontent.com/40904225/145517982-48207914-4880-4832-9935-ce8391c1a83e.jpg)
+
 반면에, RL은 머신러닝의 큰 세 분류중에서 데이터라는 개념이 없는 학습방식이다. 그 대신 아래의 요소들이 RL의 학습방식을 주관하게된다.
 
 - Agent: 학습을 하는 대상으로 직관적으로 생각되는 인공지능
@@ -38,6 +39,8 @@ Action과 State에서 $t$는 몇회차때의 행동인지 나타내는 인덱스
 한 마디로 간단하다. Agent의 목표는 Reward를 최대화하는 action을 매 state마다 취하면 RL문제가 풀린 것이다. 우리가 Agent를 하여금 풀어야 할 문제인 Reward를 고찰해야할 필요가 있다. 현재시간 차시를 $t$라고 두면 Agent는 $R_{t+1}$만을 단순하게 최대화를 하는 것이 아니라 미래의 상황까지 모두 고려한 최종보상을 최대화 해야하는 것이다.
 
 ### 예시
+
+![그림1](https://user-images.githubusercontent.com/40904225/145520520-5a03830a-a2bf-4b38-a82f-c34b205d32f6.png)
 
 쉬운 예제로, 지금 수중의 1만원으로 점심을 사먹는 것도 Reward이고, 1만원으로 조금 더 미래에 10만원으로 불리는 주식을 구매하는 것도 Reward라면 Agent는 어떤 행동을 더 좋은 보상을 얻는다는 행동으로 간주할 것일까? 만약 지금 당장의 보상을 더 가치있게 여긴다면 Agent는 점심을 먹게될 것이고, 나중의 보상을 더 가치있게 여긴다면 Agent는 주식을 사게된다. 지금 당장의 보상을 가치있게 여긴다면 $\gamma$는 0에 가까운 값을, 미래의 보상을 현재의 보상만큼이나 귀하게 여긴다면 $\gamma$는 1에 가까운 값을 가져야 한다. 여기서 주의할 점은 $\gamma$는 1보다는 작아야 한다! 그렇지 않으면 ***MDP***가 수렴하지 않아서 Agent가 해를 구하지 못하고 발산해버린다([참고링크](https://stats.stackexchange.com/questions/221402/understanding-the-role-of-the-discount-factor-in-reinforcement-learning)). 다시 돌아와서 이렇게 현재 얻을 보상 $R_{t+1}$, 다음 순간에 얻을 보상 $R_{t+2}$, 그 다음 순간에 얻을 보상 $R_{t+3}$, ... k번째 차시까지 해서 얻을 보상 $R_{t+k+1}$을 모두 고려해서 현재 평가한 최종보상($G_t$, RL분야에서는 **return**이라고 명명)은 아래 수식처럼 표현된다.
 
@@ -99,7 +102,9 @@ import gym
 
 - gym 간단 가이드
 gym의 환경은 매우 많다. 카트 폴, 마운틴 카, 택시, 아타리 벽돌깨기, 그리고 마리오까지 다양한 agent를 학습시킬수 있는 환경은 많지만 한번에 환경을 다 소개할수는 없고 포스팅 마다 적절한 환경을 가지고 와서 설명하겠다. 첫번째로 가장 많이 이용되는 '카트폴' 문제를 보겠다. 
-![카트폴 이미지]()
+
+![poster](https://user-images.githubusercontent.com/40904225/145520653-6c4d7b39-467b-421e-bd59-a4765ee177e2.jpg)
+
 이 RL의 목적은 카트를 화면밖으로 넘기지 않으면서 세워진 봉을 쓰러트리지 않은채 오랫동안 서있게 유지시키는 것이다.
 
  1. 카트폴 환경 호출 및 초기 상태불러오기
@@ -152,6 +157,7 @@ total_reward = 0
     if done:
         observation = env.reset() # 종료되었다면 다시 환경을 리셋한다
         print(f'Episode finished! Total reward: {total_reward}')
+        total_reward = 0
  env.close()
  ```
  100회 동안의 액션 수행을 관찰하며 육안으로 보기위해 렌더링 옵션을 열었다.
