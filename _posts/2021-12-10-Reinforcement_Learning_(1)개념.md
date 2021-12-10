@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Reinforcement Learning_(1)concept"
+title: "Reinforcement Learning_[1]"
 author: "Hyunseok, Hwang"
 categories: journal
 tags: [documentation,sample]
