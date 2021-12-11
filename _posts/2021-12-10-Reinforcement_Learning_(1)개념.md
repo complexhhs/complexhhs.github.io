@@ -91,7 +91,7 @@ $$\begin{align} q_{\pi}(s,a) &= \mathbb{E}_{\pi}[G_t\vert S_t=s, A_t=a] \\
 
 # Reinforcement Learning API
 
-이론이 굉장히 길었다. 첫번째 RL포스팅의 이론 부분은 이쯤 줄이도록 하고 앞으로 우리가 꾸준히 살펴볼 RL연구 전용으로 많이 애용되는 OpenAi Gym API를 살펴보고자 한다. OpenAi Gym의 정보를 얻고 싶으면 [OpenAi 위키 링크]와 (https://ko.wikipedia.org/wiki/%EC%98%A4%ED%94%88AI) [Gym github 링크](https://github.com/openai/gym)를 참조해주기를 바란다.
+이론이 굉장히 길었다. 첫번째 RL포스팅의 이론 부분은 이쯤 줄이도록 하고 앞으로 우리가 꾸준히 살펴볼 RL연구 전용으로 많이 애용되는 OpenAi Gym API를 살펴보고자 한다. OpenAi Gym의 정보를 얻고 싶으면 [OpenAi 위키 링크](https://ko.wikipedia.org/wiki/%EC%98%A4%ED%94%88AI)와 [Gym github 링크](https://github.com/openai/gym)를 참조해주기를 바란다.
 
 - 설치 및 호출
 ```
