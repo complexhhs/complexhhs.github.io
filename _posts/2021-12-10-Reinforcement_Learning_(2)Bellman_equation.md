@@ -123,16 +123,12 @@ $\gamma$를 1로 둘 수 있는 이유는 해당 문제에서는 어느 경로�
 
 2. 첫번째 진행
     
-    첫번째 보상이 진행되었다. 식 (5)를 이용하는데 지금 단계에서는 첫번째 진행만 되었으니 $s'$는 우리의 고려사항에서 아예 제외된다. 그러므로,
+    첫번째 보상이 진행되었다. Q-function부터 식 (4)를 이용하는데 지금 단계에서는 모든 $s'$에 대해서 Value-function값이 0이다. 그러므로, Q-function 값은 이동 할 수 없는 경우와 환경이 종료되는 경우를 제외하고 모두 -1로 값이 부여된다. Q-function을 구한 후 식 (3)을 같이 이용해 Value-function을 업데이트 한다.
     $$\begin{align} V_{\pi}(s)&=\sum_{a \in \mathcal{A}}{\pi(a \vert s) q_{\pi}(s,a)} \\
 &=\sum_{a \in \mathcal{A}}{\pi(a \vert s)}\left\{R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\pi}(s') \right\} \\
 &=-\sum_{a \in \mathcal{A}}{\pi(a \vert s)} \\
 &=-1. \end{align}$$(12)
     
-    또한, Q-function은 다음 차시의 Value-function을 위해서 계산해야하는데 다행히도 $\pi$는 state에 대해서 무관하게 동일한값을 유지하므로 식 (3)을 변형시켜서 다음과 같이 표현된다.
-    $$\begin{align}q_{\pi}(s \vert .) &= \frac{V_{\pi}(s)}{\pi (. \vert s)} \\
-                                      &= 4V_{\pi}(s)\\
-                                      &= -4. \end{align}$$ (13)
     ![그림 t-1]()
     
     ```python
@@ -141,7 +137,7 @@ $\gamma$를 1로 둘 수 있는 이유는 해당 문제에서는 어느 경로�
     
 3. 순차적 진행
     
-    t번째 보상이 진행되었다. 이제는 점화식처럼 첫번째 계산을 진행한것처럼 반복수행을 진행하면 된다. 단, 모서리와 경계면쪽에서의 계산에 유의하면서 점화식형태로 반복시행하자! Value-function은 식 (5)를, Q-function은 식 (3)을 계속해서 반복수행한다.
+    t번째 보상이 진행되었다. 이제는 점화식처럼 첫번째 계산을 진행한것처럼 반복수행을 진행하면 된다. 단, 모서리와 경계면쪽에서의 계산에 유의하면서 점화식형태로 반복시행하자! Q-function은 식 (4)를 이용해 업데이트하고, Value-function은 식 (3)를 이용해 업데이트를 한다.
     
     ![그림 t-inf]()
     
@@ -165,7 +161,7 @@ Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 �
 
 2. 첫번째 진행
    
-   Value-function 식 (8)을 이용해서 모든 action중 최고의 return값을 주는 Q-function값을 삼으면 된다. 다음 Q-function은 식 (13)처럼 업데이트 해준다.
+   Value-function 식 (8)을 이용해서 모든 action중 최고의 return값을 주는 Q-function값을 삼으면 된다. 여기서 Q-function은 앞선 식 (9)를 이용해서 풀이된다.
        
     ```python
     코드
