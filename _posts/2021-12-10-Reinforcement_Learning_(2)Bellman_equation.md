@@ -42,6 +42,7 @@ $$V_{\pi}(s)=\sum_{a \in \mathcal{A}}{\pi(a \vert s) q_{\pi}(s,a)}.$$(3)
 현재 state에서 다음 state로 넘어가는 상황에서의 Q-function과 Value function간의 관계는 위와 같다. 수식으로 표현된 문자가 혼용되어 굉장히 독자들에게 미안하지만 작성의 편의를 위해서 양해를 바란다. 현재 state와 action을 $s,a$로, 미래 state와 action을 $s', a'$로 표현함을 미리 밝힌다. $s \rightarrow s'$로 가는 것은 agent가 $a$ action을 취했다는 의미가 된다. 우리가 간과하기 쉬운 부분이 있는데 environment에서 $a$를 취했다고 예상되는 구체적인 $s'$가 생기는 것이 아니다. 실제로 environment의 정보를 완벽하게 아는 agent는 없다. 예를 들어 신호등의 직진신호를 받아 차를 출발했는데 무사히 잘 출발하리라는 보장을 할 수 없다. 왜냐하면, 갑자기 차도를 향해 뛰어드는 무단보행자나 앞차가 신호를 보지 못하고 출발하지 못해서 나도 출발 할 수 없는 상황에 마주하기 때문이다. 이는 우리가 앞서서 **State transition probability**, $P_{ss'}^{a}$를 언급했었던 부분이다. 즉, 현재 $a$를 취한다고 해서 $s \rightarrow s'$의 확률이 1이 아닐수도 있음을 고려 해야한다. 위 그림은 예기치 못한 경우로 분화되는 케이스를 하나를 더 두어 $s'$가 두 가지 케이스로 나뉠 수 있음을 보여준다. 따라서, Q-function을 미래의 Value function로 표현하면 다음과 같다.
 
 $$q_{\pi}(s,a) = R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\pi}(s').$$(4)
+
 식 (4)에선 미래의 state로 진행됨에 따라 environment로 부터 reward $R_{ss'}^{a}$를 받는 부분을 놓치지 않도록 유의하자.
 
 이제 Value-function $\rightarrow$ Q-function의 관계와 Q-function $\rightarrow$ Value-function의 관계를 종합하여, Value-function과 Q-function 각각의 동적계획법 형태로 풀이된 Bellman equation으로 표현 할 수 있다.
@@ -61,3 +62,121 @@ $$\begin{align} q_{\pi}(s,a)&= R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\p
 &=R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a}\left\{ \sum_{a' \in \mathcal{A}}{\pi(a' \vert s') q_{\pi}(s',a')} \right \}. \end{align}$$(6)
 
 # Bellman optimality equation
+
+$s \rightarrow s'$에서 모든 $a$경우를 다 비교분석한 방식이 바로 Bellman equation이다. 식 (5)와 (6)이 모두 모든 state의 경우와 action의 상황을 다 고려하고 문제를 푸는 방식인데 이렇게 문제를 접근하면 계산량에도 문제가 있고 굳이 고려하지 않아도 되는 부분에 대해서 쓸데없이 고려하는 문제가 발생한다. 실질적인 대안으로 해당 상황에 대해서 '최적'의 행동을 목표로 하는 것이 RL의 방식이다. 다시말해 '최적'의 행동을 취하는 방법과 모든 행동의 경우를 다 고려하겠다는 전략이 바로 RL과 MDP의 문제해법방식의 결정적 차이이다. 그렇다면 최적의 행동을 취하는 agent의 policy를 수식으로 표현해보자.
+
+$$ \pi_{*}(a \vert s)=
+\begin{cases}
+1,  & \text{for } a=\text{argmax}_{a \in \mathcal{A}}q_{*}(s,a)\\
+0, & \text{for otherwise}.
+\end{cases} $$ (7)
+
+식 (7)에서부터 등장하는 아래첨자의 *표시는 Bellman optimality equation을 의미한다. 이제는 policy의 분포를 모든 action에 대해서 고려하는 것이 아닌 최고의 Q_function을 출력하는 action에 대해서만 고려하겠다는 의미를 가지고 MDP 해법인 Bellman equation을 RL 해법인 Bellman optimality equation으로 다음과 같이 변형된다.
+
+![optimal_1_value_Q]()
+
+Bellman equation 챕터에서 나온 그림과 차이가 있다면 갈래길에서 부채꼴이 하나가 추가되었는데 이 의미는 '갈림길중 최대값을 선택'한다는 의미를 내포하고 있다. 따라서, 식 (3)을 Bellman optimality equation으로 표현하면 다음과 같다.
+
+$$V_{*}(s)=max_{a \in \mathcal{A}}{q_{*}(s,a)}.$$(8)
+
+![optimal_1_Q_value]()
+
+Q-function에서 value function으로 넘어가는 단계는 딱히 변할수 있는 부분이 없다. 이는 agent가 어떤 행동을 취하는 지의 문제가 아니라 environment가 어떤 state를 주는지에 결정된다. 따라서 식 (4)의 Bellman optimality equation은 다음과 같이 바뀐다.
+
+$$q_{*}(s,a) = R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{*}(s').$$(9)
+
+![optimal_1_value_Q_value]()
+
+마지막으로 $s \rightarrow s'$는 두 식을 합쳐서 아래와 같이 표현된다.
+
+$$\begin{align} V_{*}(s)&=max_{a \in \mathcal{A}}{q_{*}(s,a)} \\
+&=max_{a \in \mathcal{A}}\left(R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{*}(s') \right). \end{align}$$(10)
+
+#  Practice(1): Bellman equation, 4x4 grid value
+
+![4x4_grid_space_initial]()
+
+David silver 교수님의 Reinforcement learning 강의에서 나온 문제, 4x4 격자의 최적경로 검색 문제를 풀이해보자. 문제의 상황 설정은
+
+- 좌측 최 상단, 우측 최 하단 지점은 격자 검색이 종료되는 지점이다.
+    - 한번 행동을 개시하면 reward는 -1의 보상을 받는다.
+    - $\gamma$는 1로 설정.
+- $\pi$는 어떤 $s$에서든 사방향으로 모두 동일한 확률분포를 가진다.
+     - $$ \pi(a \vert .)=
+\begin{cases}
+\frac{1}{4},  & \text{for } a=left \\
+\frac{1}{4},  & \text{for } a=up \\
+\frac{1}{4},  & \text{for } a=right \\
+\frac{1}{4},  & \text{for } a=down.
+\end{cases} $$ (11)
+- $s \rightarrow s'$는 policy가 의도한대로 움직인다. 즉, $P_{ss'}^{a}$는 1로 고정 되어있다.
+   
+$\gamma$를 1로 둘 수 있는 이유는 해당 문제에서는 어느 경로를 가더라도 문제가 종료되는 지점이 있으므로 문제가 발산하지 않기 때문에  가능하다. 덧붙여 모서리, 귀퉁이 같은 지점에서 특정 방향으로 더 이상 움직일수 없으면 $s' \leftarrow s$이다. Bellman equation으로 4x4격자의 16개 지점에서 최종 Value-function이 어떻게 연산되는지 구해보겠다.
+
+1. 시작단계
+    
+    모든 격자의 가치는 주어져있지 않다. 모두 0으로 고정되어 있음. 따로 계산할 필요는 없다. Value-function도 0이며, Q-function의 모든 action의 경우 모두 0이다.
+    
+    ```python
+    코드
+    ```
+
+2. 첫번째 진행
+    
+    첫번째 보상이 진행되었다. 식 (5)를 이용하는데 지금 단계에서는 첫번째 진행만 되었으니 $s'$는 우리의 고려사항에서 아예 제외된다. 그러므로,
+    $$\begin{align} V_{\pi}(s)&=\sum_{a \in \mathcal{A}}{\pi(a \vert s) q_{\pi}(s,a)} \\
+&=\sum_{a \in \mathcal{A}}{\pi(a \vert s)}\left\{R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\pi}(s') \right\} \\
+&=-\sum_{a \in \mathcal{A}}{\pi(a \vert s)} \\
+&=-1. \end{align}$$(12)
+    
+    또한, Q-function은 다음 차시의 Value-function을 위해서 계산해야하는데 다행히도 $\pi$는 state에 대해서 무관하게 동일한값을 유지하므로 식 (3)을 변형시켜서 다음과 같이 표현된다.
+    $$\begin{align}q_{\pi}(s \vert .) &= \frac{V_{\pi}(s)}{\pi (. \vert s)} \\
+                                      &= 4V_{\pi}(s)\\
+                                      &= -4. \end{align}$$ (13)
+    ![그림 t-1]()
+    
+    ```python
+    코드
+    ```
+    
+3. 순차적 진행
+    
+    t번째 보상이 진행되었다. 이제는 점화식처럼 첫번째 계산을 진행한것처럼 반복수행을 진행하면 된다. 단, 모서리와 경계면쪽에서의 계산에 유의하면서 점화식형태로 반복시행하자! Value-function은 식 (5)를, Q-function은 식 (3)을 계속해서 반복수행한다.
+    
+    ![그림 t-inf]()
+    
+    ```python
+    코드
+    ```
+    
+Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 놓으면 가만히 있으라는 action의 옵션이 없으니, 현재 agent의 위치에서 가장 Value값이 큰 인접지역으로 이동, 그 후 최고 값으로 이동... 반복하여 상황 종료되는 좌상단, 우하단의 지점으로 최대한 빨리 이동하려는 action을 취하게 될 것을 표로 확인 할 수 있다. 
+
+#  Practice(2): Bellman optimality equation, 4x4 grid 
+
+위 4x4 grid 문제상황과 하나의 문제상황만 다르게 설정된다.
+
+- 좌상단으로 부터 우하단까지로 agent가 최단 경로를 검색한다.
+
+최적의 policy를 구해야하는 문제로 Bellman optimality equation을 사용하여 최단경로를 검색한다. 인간은 직관적으로 우측3번,하단3번을 무작위로 조합하면 최단경로를 검색할수 있다고 직관적으로 알 수 있지만 직관이 없는 agent가 옆길로 새지않고 목적지까지 이동하는 모습을 이론을 통해서 풀어보도록 하겠다.
+
+1. 시작단계
+    
+    시작단계는 역시 사전에 아무정보도 없으니 모든 가치는 0으로 진행된다. Value-function과 Q-function모두 특별히 계산해야할 부분은 없다.
+
+2. 첫번째 진행
+   
+   Value-function 식 (8)을 이용해서 모든 action중 최고의 return값을 주는 Q-function값을 삼으면 된다. 다음 Q-function은 식 (13)처럼 업데이트 해준다.
+       
+    ```python
+    코드
+    ```
+
+3. 순차적 진행
+    
+    t번째 차시가 진행되었다. 역시 반복수행을 통해서 계산을 수행한다. 7번정도 반복하면 Bellman optimality equation이 수렴되어 문제가 최종 해결된다.
+        
+    ```python
+    코드
+    ```
+    
+Bellman optimality equation을 모두 해결하면 agent를 4x4격자내 좌상단 위치에서 부터 특정 임의의 위치까지 이동할때 소모되는 일종의 비용을 확인 할 수 있다. 이를 통해 특정위치까지 이동할때 왔던길을 되돌아 가지않고 최단경로로 이동하는 모습을 육안으로 확인 할 수 있다.
