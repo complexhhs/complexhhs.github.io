@@ -1,5 +1,3 @@
-2021-12-10-Reinforcement_Learning_(2)Bellman equation.md
-
 ---
 layout: post
 title: "Reinforcement Learning_[2]"
