@@ -1,3 +1,5 @@
+2021-12-10-Reinforcement_Learning_(2)Bellman equation.md
+
 ---
 layout: post
 title: "Reinforcement Learning_[2]"
@@ -115,35 +117,77 @@ $\gamma$를 1로 둘 수 있는 이유는 해당 문제에서는 어느 경로�
 
 1. 시작단계
     
-    모든 격자의 가치는 주어져있지 않다. 모두 0으로 고정되어 있음. 따로 계산할 필요는 없다. Value-function도 0이며, Q-function의 모든 action의 경우 모두 0이다.
+    모든 격자의 가치는 주어져있지 않다. 모두 0으로 고정되어 있으므로 따로 계산할 필요는 없다. 
     
     ```python
-    코드
+    import numpy as np
+
+    # initializing
+    old_value = np.zeros((4,4))
+    new_value = np.zeros((4,4)) 
+    policy = {'up':0.25,'down':0.25,'left':0.25,'right':0.25}
     ```
+    
+    $s$와 $s'$에 대한 value가 update되는 과정이 필요하므로 ```new_value```, ```old_value```로 두 변수를 만들고 swap을 진행할 것이다. 또한, $\pi$는 격자의 경계지점 문제가 있기 때문에 딕셔너리로 형태로 이름을 명확하게 집어넣었다. 이 부분은 계속한 코드에서 더 언급하겠다.
 
 2. 첫번째 진행
     
-    첫번째 보상이 진행되었다. Q-function부터 식 (4)를 이용하는데 지금 단계에서는 모든 $s'$에 대해서 Value-function값이 0이다. 그러므로, Q-function 값은 이동 할 수 없는 경우와 환경이 종료되는 경우를 제외하고 모두 -1로 값이 부여된다. Q-function을 구한 후 식 (3)을 같이 이용해 Value-function을 업데이트 한다.
-    $$\begin{align} V_{\pi}(s)&=\sum_{a \in \mathcal{A}}{\pi(a \vert s) q_{\pi}(s,a)} \\
-&=\sum_{a \in \mathcal{A}}{\pi(a \vert s)}\left\{R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\pi}(s') \right\} \\
+    첫번째 보상이 진행되었다. 식 (5)를 이용해 Value-function의 $s'$의 상황을 고려하고 업데이트를 진행하면 된다. 초기 Value-function값은 모두 0으로 고정되어있으므로 특별히 어려울 부분은 없다.
+    
+    $$\begin{align} V_{\pi}(s) &=\sum_{a \in \mathcal{A}}{\pi(a \vert s)}\left\{R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\pi}(s') \right\} \\
 &=-\sum_{a \in \mathcal{A}}{\pi(a \vert s)} \\
 &=-1. \end{align}$$(12)
     
     ![그림 t-1]()
     
     ```python
-    코드
+    # 1st step
+    dummy_list = []
+    for key,value in policy.items():
+        dummy_list.append((-1+old_value)*value)
+    dummy_list = np.sum(np.array(dummy_list),axis=0)
+    new_value = dummy_list
+    new_value[0,0],new_value[-1,-1] = 0,0
+    old_value = new_value
     ```
+    
+    여기까지는 경계지점에 대해서 딱히 고려할 부분이 없다. 왜냐하면 격자내 모든 Value-function값이 0으로 설정되어있기에 특별히 경계지점을 생각하지 않아도 계산이 올바르게 진행된다.
     
 3. 순차적 진행
     
-    t번째 보상이 진행되었다. 이제는 점화식처럼 첫번째 계산을 진행한것처럼 반복수행을 진행하면 된다. 단, 모서리와 경계면쪽에서의 계산에 유의하면서 점화식형태로 반복시행하자! Q-function은 식 (4)를 이용해 업데이트하고, Value-function은 식 (3)를 이용해 업데이트를 한다.
+    t번째 보상이 진행되었다. 이제는 점화식처럼 첫번째 계산을 진행한것처럼 반복수행을 진행하면 된다. 단, 모서리와 경계면쪽에서의 계산에 유의하면서 점화식형태로 반복시행하자! 
     
     ![그림 t-inf]()
     
     ```python
-    코드
+    # 2nd step -> k_iteration 원하는 만큼
+    dummy_list = []
+    mid_term = np.zeros((4,4))
+    for key,value in policy.items():
+        # upper bound
+        if key == 'up':
+            mid_term[1:,:] += (-1+old_value[:-1,:])*value
+            mid_term[0,:] += (-1+old_value[0,:])*value
+        # down bound
+        elif key == 'down':
+            mid_term[:-1,:] += (-1+old_value[1:,:])*value
+            mid_term[-1,:] += (-1+old_value[-1,:])*value
+        # left bound
+        elif key == 'left':
+            mid_term[:,1:] += (-1+old_value[:,:-1])*value
+            mid_term[:,0] += (-1+old_value[:,0])*value
+        # right bound
+        else:
+            mid_term[:,:-1] += (-1+old_value[:,1:])*value
+            mid_term[:,-1] += (-1+old_value[:,-1])*value
+        dummy_list.append(mid_term)
+    dummy_list = np.mean(np.array(dummy_list),axis=0)
+    new_value = dummy_list
+    new_value[0,0],new_value[-1,-1] = 0,0
+    old_value = new_value
     ```
+    
+    반복 진행시점부터 경계지점에 대해서 고려해줘야한다. Value-function이 반복 진행됨에 따라 더 이상 0으로만 고정되어있지 않으므로 경계선에서 agent가 진행 할 수 없는 움직임을 취하는 옵션이 있다면 가만히 있어야 한다는 제약을 걸어줘야 한다. 이 부분을 ```mid_term```이라는 변수를 통해서 고려해줬으며 ```dummy_list```변수에서 평균값을 취해줬는데 1회차 step과는 달리 반복 진행차부터는 4방향에 대해서 계속해서 누적합이 발생되었기 때문에 이를 모든 $a$에 대해서 공정하게 나눠주야 한다.
     
 Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 놓으면 가만히 있으라는 action의 옵션이 없으니, 현재 agent의 위치에서 가장 Value값이 큰 인접지역으로 이동, 그 후 최고 값으로 이동... 반복하여 상황 종료되는 좌상단, 우하단의 지점으로 최대한 빨리 이동하려는 action을 취하게 될 것을 표로 확인 할 수 있다. 
 
@@ -157,23 +201,64 @@ Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 �
 
 1. 시작단계
     
-    시작단계는 역시 사전에 아무정보도 없으니 모든 가치는 0으로 진행된다. Value-function과 Q-function모두 특별히 계산해야할 부분은 없다.
+    시작단계는 역시 앞선 예제와 같이 사전에 아무정보도 없으니 모든 가치는 0으로 진행된다. 
+    Optimality action만 취해야하니 policy를 따로 정의내리지 않겠다.
+    ```python
+    # initializing
+    old_value = np.zeros((4,4))
+    new_value = np.zeros((4,4)) 
+    ```
 
 2. 첫번째 진행
    
-   Value-function 식 (8)을 이용해서 모든 action중 최고의 return값을 주는 Q-function값을 삼으면 된다. 여기서 Q-function은 앞선 식 (9)를 이용해서 풀이된다.
+   Optimal Value-function은 식 (10)을 이용해서 업데이트된다. 시작단계에서 Value-function이 0으로 시작되었으니 특별히 고려할 부분은 없다.
        
     ```python
-    코드
+    # 1st step
+    new_value = -1+old_value
+    new_value[0,0]=0
+    old_value = new_value
     ```
 
 3. 순차적 진행
     
-    t번째 차시가 진행되었다. 역시 반복수행을 통해서 계산을 수행한다. 7번정도 반복하면 Bellman optimality equation이 수렴되어 문제가 최종 해결된다.
+    t번째 차시가 진행되었다. 식 (10) 반복수행을 통해서 계산을 수행한다. 아래 코드블럭을 7번정도 반복하면 Bellman optimality equation이 수렴되어 문제가 최종 해결된다.
         
     ```python
-    코드
+    for row in range(4):
+        for col in range(4):
+            # top-left corner -> always zero
+            if row == 0 and col == 0:
+                pass
+            # top-mid   
+            elif row == 0 and col != 3:
+                new_value[row][col] = max((-1+old_value[row][col-1]),(-1+old_value[row+1][col]),(-1+old_value[row][col+1]),(-1+new_value[row][col]))
+            # top-right corner 
+            elif row == 0 and col == 3:
+                new_value[row][col] = max((-1+old_value[row][col-1]),(-1+old_value[row+1][col]),(-1+new_value[row][col]))
+            # left-mid
+            elif col == 0 and row != 3:
+                new_value[row][col] = max((-1+old_value[row+1][col]),(-1+old_value[row][col+1]),(-1+old_value[row-1][col]))
+            # left-bottom corner
+            elif col == 0 and row == 3:
+                new_value[row][col] = max((-1+old_value[row-1][col]),(-1+old_value[row][col+1]),(-1+new_value[row][col]))
+            # bottom-mid
+            elif row == 3 and col != 3:
+                new_value[row][col] = max((-1+old_value[row-1][col]),(-1+old_value[row][col-1]),(-1+old_value[row][col+1]),(-1+new_value[row][col]))
+            # bottom-right corner
+            elif row == 3 and col == 3:
+                new_value[row][col] = max((-1+old_value[row-1][col]),(-1+old_value[row][col-1]),(-1+new_value[row][col]))
+            # right-mid
+            elif col == 3 and row != 3:
+                new_value[row][col] = max((-1+old_value[row-1][col]),(-1+old_value[row][col-1]),(-1+old_value[row+1][col]),(-1+new_value[row][col]))
+            # else
+            else:
+                new_value[row][col] = max((-1+old_value[row-1][col]),(-1+old_value[row][col-1]),(-1+old_value[row+1][col]),(-1+old_value[row][col+1]))
+    old_value = new_value        
     ```
+    
+    모든 경계지점에서 $a$의 선택지가 달라진다. 따라서 하나의 grid에서 생각할수 있는 모든 $a$에 대해서 경우의 수를 다 따진다. 주석처리된 부분을 유의하면서 maximum value를 구할수 있도록 다음과 같이 구성한다.
+    7번 정도면 수렴된다.
     
 Bellman optimality equation을 모두 해결하면 agent를 4x4격자내 좌상단 위치에서 부터 특정 임의의 위치까지 이동할때 소모되는 일종의 비용을 확인 할 수 있다. 이를 통해 특정위치까지 이동할때 왔던길을 되돌아 가지않고 최단경로로 이동하는 모습을 육안으로 확인 할 수 있다.
 
