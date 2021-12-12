@@ -1,10 +1,9 @@
 ---
 layout: post
-title: "[MCMC]Monte_Carlo_Markov_Chain+MetroHasting_sampling"
+title: "[Bayesian method]Monte_Carlo_Markov_Chain+MetroHasting_sampling"
 author: "Hyunseok, Hwang"
 categories: journal
 tags: [documentation,sample]
-image: cards.jpg
 ---
 
 
