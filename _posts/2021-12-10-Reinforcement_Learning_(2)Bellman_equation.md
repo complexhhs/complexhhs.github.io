@@ -10,7 +10,7 @@ tags: [documentation,sample]
 
 # Bellman equation
 
-Bellman equation은 특별한 것은 아니고, 사실 지난 포스팅의 Value function과 Action-Value function을 전개한 식이 바로 Bellman equation이다. 하지만 그 이면에 더 세세한 사항들에 대해서 고려할 부분이 많기에 따로 챕터를 잡아 설명한다.RL은 일종의 ***Markov Decision Process***를 푸는 과정과 같으며, 그 알고리즘은 일종의 동적계획법(Dynamic Programming)이라고 먼저 언급했었다. 엄밀히 말하자면 RL은 MDP와는 엄연히 다른 방식인데 그 이유를 포스팅이 진행되는 과정에서 밝히도록 하겠다. 다시 돌아와, 최종보상을 최대화 하는 과정은 현재의 상태와 액션 $s_t, a_t$로부터 Value function, 혹은 Action-Value function(이하, Q-function으로 명명)을 미래의 상태와 액션 $s_{t+1}, a_{t+1}$로 쪼개어 수식으로 전개해서 푸는 과정을 다시 한번 보자.
+Bellman equation은 특별한 것은 아니고, 사실 지난 포스팅의 Value function과 Action-Value function을 전개한 식이 바로 Bellman equation이다. 하지만 그 이면에 더 세세한 사항들에 대해서 고려할 부분이 많기에 따로 챕터를 잡아 설명한다.RL은 일종의 ***Markov Decision Process***를 푸는 과정과 같으며, 그 알고리즘은 일종의 동적계획법(Dynamic Programming)이라고 먼저 언급했었다. 최종보상을 최대화 하는 과정은 현재의 상태와 액션 $s_t, a_t$로부터 Value function, 혹은 Action-Value function(이하, Q-function으로 명명)을 미래의 상태와 액션 $s_{t+1}, a_{t+1}$로 쪼개어 수식으로 전개해서 푸는 과정을 다시 한번 보자.
 
 - Value function
     - $$\begin{align} V_{\pi}(s) &= \mathbb{E}_{\pi}[G_t\vert S_t=s] \\
@@ -71,7 +71,7 @@ $$ \pi_{*}(a \vert s)=
 0, & \text{for otherwise}.
 \end{cases} $$ (7)
 
-식 (7)에서부터 등장하는 아래첨자의 * 표시는 Bellman optimality equation을 의미한다. 이제는 $\pi$의 분포를 모든 $a$에 대해서 고려하는 것이 아닌 최고의 Q_function을 출력하는 $a$에 대해서만 고려하겠다는 의미를 가지고 MDP 해법인 Bellman equation을 RL 해법인 Bellman optimality equation으로 다음과 같이 변형된다.
+식 (7)에서부터 등장하는 아래첨자의 * 표시는 Bellman optimality equation을 의미한다. 이제는 $\pi$의 분포를 모든 $a$에 대해서 고려하는 것이 아닌 최고의 Q_function을 출력하는 $a$에 대해서만 고려하겠다는 의미를 가지고 MDP 해법인 Bellman equation을 Bellman optimality equation으로 다음과 같이 변형된다.
 
 ![value_opt](https://user-images.githubusercontent.com/40904225/145713526-95317cab-3ec4-418f-a734-f71ecbac89fe.png)
 
@@ -272,5 +272,5 @@ Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 �
     
 Bellman optimality equation을 모두 해결하면 agent를 4x4격자내 좌상단 위치에서 부터 특정 임의의 위치까지 이동할때 소모되는 일종의 비용을 확인 할 수 있다. 이를 통해 특정위치까지 이동할때 왔던길을 되돌아 가지않고 최단경로로 이동하는 모습을 육안으로 확인 할 수 있다.
 
-이번 포스팅에서는 Bellman equation과 Policy가 일정하게 유지되는 상황에서 최적선택을 하는 튜토리얼까지 살펴보았다. 아직까지는 진정한 RL로 넘어가지 않았다. 다음 포스팅에서 동적계획법(Dynamic Programming)을 넘어 agent가 $a$를 주도적으로 선택하고 $\pi$를 주도적으로 업데이트를 하는 RL을 이야기해보겠다.
+이번 포스팅에서는 Bellman equation과 Policy가 일정하게 유지되는 상황에서 최적선택을 하는 튜토리얼까지 살펴보았다. 다음 포스팅에서 동적계획법(Dynamic Programming)을 넘어 agent가 $a$를 주도적으로 선택하고 $\pi$를 주도적으로 업데이트를 하는 RL을 이야기해보겠다.
 튜토리얼에 해법 전 코드는 여기 [jupyter notebook링크](https://github.com/complexhhs/ML_basic_concept/blob/main/Bellman_equation_practice.ipynb)를 통해 확인하기 바란다.
