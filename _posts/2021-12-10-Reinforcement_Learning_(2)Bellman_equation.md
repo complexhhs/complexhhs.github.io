@@ -9,6 +9,7 @@ tags: [documentation,sample]
 혹시 강화학습에 대한 기초 개념을 모른다면 [이전 포스팅](https://complexhhs.github.io/Reinforcement_Learning_(1)%EA%B0%9C%EB%85%90)부터 보고 와주기를 바란다. 이번 포스팅에선 지난 포스팅에 이어서 Bellman equation의 이론과 그에 따른 agent의 최적화 방식을 조금 더 면밀히 살펴보고, 그럴싸한 강화학습 문제를 풀어보도록 하겠다.
 
 # Bellman equation
+---
 
 Bellman equation은 특별한 것은 아니고, 사실 지난 포스팅의 Value function과 Action-Value function을 전개한 식이 바로 Bellman equation이다. 하지만 그 이면에 더 세세한 사항들에 대해서 고려할 부분이 많기에 따로 챕터를 잡아 설명한다.RL은 일종의 ***Markov Decision Process***를 푸는 과정과 같으며, 그 알고리즘은 일종의 동적계획법(Dynamic Programming)이라고 먼저 언급했었다. 최종보상을 최대화 하는 과정은 현재의 상태와 액션 $s_t, a_t$로부터 Value function, 혹은 Action-Value function(이하, Q-function으로 명명)을 미래의 상태와 액션 $s_{t+1}, a_{t+1}$로 쪼개어 수식으로 전개해서 푸는 과정을 다시 한번 보자.
 
@@ -62,6 +63,7 @@ $$\begin{align} Q_{\pi}(s,a)&= R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{\p
 &=R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a}\left\{ \sum_{a' \in \mathcal{A}}{\pi(a' \vert s') Q_{\pi}(s',a')} \right \}. \end{align}$$(6)
 
 # Bellman optimality equation
+---
 
 $s \rightarrow s'$에서 모든 $a$경우를 다 비교분석한 방식이 바로 Bellman equation이다. 식 (5)와 (6)이 모두 모든 $s$의 경우와 $a$의 상황을 다 고려하고 문제를 푸는 방식인데 이렇게 문제를 접근하면 계산량에도 문제가 있고 굳이 고려하지 않아도 되는 부분에 대해서 쓸데없이 고려하는 문제가 발생한다. 실질적인 대안으로 해당 상황에 대해서 '최적'의 행동을 목표로 하는 것이 RL의 방식이다. 다시말해 '최적'의 행동을 취하는 방법과 모든 행동의 경우를 다 고려하겠다는 전략이 바로 RL과 MDP의 문제해법방식의 결정적 차이이다. 그렇다면 최적의 행동을 취하는 agent의 $\pi$를 수식으로 표현해보자.
 
@@ -93,6 +95,7 @@ $$\begin{align} V_{*}(s)&=max_{a \in \mathcal{A}}{Q_{*}(s,a)} \\
 &=max_{a \in \mathcal{A}}\left(R_{s}^{a}+\gamma \sum_{s' \in S}P_{ss'}^{a} V_{*}(s') \right). \end{align}$$(10)
 
 #  Practice(1): Bellman equation, 4x4 grid value
+---
 
 ![David_silver_lecture](https://user-images.githubusercontent.com/40904225/145713591-70ecb7c9-0d03-4824-8afb-1214eea29b38.png)
 
@@ -194,6 +197,7 @@ $\gamma$를 1로 둘 수 있는 이유는 해당 문제에서는 어느 경로�
 Bellman equation을 해결한 agent를 4x4격자내 임의의 위치에 옮겨 놓으면 가만히 있으라는 action의 옵션이 없으니, 현재 agent의 위치에서 가장 Value값이 큰 인접지역으로 이동, 그 후 최고 값으로 이동... 반복하여 상황 종료되는 좌상단, 우하단의 지점으로 최대한 빨리 이동하려는 action을 취하게 될 것을 표로 확인 할 수 있다. 
 
 #  Practice(2): Bellman optimality equation, 4x4 grid 
+---
 
 위 4x4 grid 문제상황과 하나의 문제상황만 다르게 설정된다.
 
