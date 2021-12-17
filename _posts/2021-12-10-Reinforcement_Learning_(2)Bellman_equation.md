@@ -69,7 +69,7 @@ $s \rightarrow s'$에서 모든 $a$경우를 다 비교분석한 방식이 바�
 
 $$ \pi_{*}(a \vert s)=
 \begin{cases}
-1,  & \text{for } a=\text{argmax}_{a \in \mathcal{A}}q_{*}(s,a)\\
+1,  & \text{for } a=\text{argmax}_{a \in \mathcal{A}}Q_{*}(s,a)\\
 0, & \text{for otherwise}.
 \end{cases} $$ (7)
 
@@ -79,7 +79,7 @@ $$ \pi_{*}(a \vert s)=
 
 Bellman equation 챕터에서 나온 그림과 차이가 있다면 갈래길에서 부채꼴이 하나가 추가되었는데 이 의미는 '갈림길중 최대값을 선택'한다는 의미를 내포하고 있다. 따라서, 식 (3)을 Bellman optimality equation으로 표현하면 다음과 같다.
 
-$$V_{*}(s)=max_{a \in \mathcal{A}}{q_{*}(s,a)}.$$(8)
+$$V_{*}(s)=max_{a \in \mathcal{A}}{Q_{*}(s,a)}.$$(8)
 
 ![q_opt](https://user-images.githubusercontent.com/40904225/145713535-d7aec03c-6563-4791-8a4c-0d9075adddac.png)
 
