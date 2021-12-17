@@ -77,17 +77,17 @@ $$\begin{align} V_{\pi}(s) &= \mathbb{E}_{\pi}[G_t\vert S_t=s] \\
 
 식 (5)와 같이 현재 state의 value function을 안다는 것은 다음 state의 value function을 알아야하는 점화식의 표현이 된다. 동적계획법(Dynamic programming)의 방식으로 큰 문제를 작은 문제로 분할해서 해결하는 방식이 RL에 적용되는 방식을 고려해야한다. 아래첨자 $\pi$가 등장했는데 이는 정책 Policy라고 명명하며 어떤 action을 취할지 주관하는 action의 probability이다.
 
-식 (4)와 식(5)는 가치함수를 다뤘고, 지금까지는 agent가 취하는 action에 대해서 구체적으로 생각하지 않은 보상을 이야기했다. 엄밀하게는 agent가 모든 action을 다 고려한 보상에 대한 가치를 분석한 것이다. 이제는 action까지 같이 고려한 보상에 대해서 분석하고자한다. 액션-가치함수, 달리 표현해서 Q-함수라고 말하며 $q_{\pi}(s_t,a_t)$로 작성한다. $q_{\pi}(s_t,a_t)$와 $V_{\pi}(s_t)$와의 관계는 다음과 같다.
+식 (4)와 식(5)는 가치함수를 다뤘고, 지금까지는 agent가 취하는 action에 대해서 구체적으로 생각하지 않은 보상을 이야기했다. 엄밀하게는 agent가 모든 action을 다 고려한 보상에 대한 가치를 분석한 것이다. 이제는 action까지 같이 고려한 보상에 대해서 분석하고자한다. 액션-가치함수, 달리 표현해서 Q-함수라고 말하며 $Q_{\pi}(s_t,a_t)$로 작성한다. $Q_{\pi}(s_t,a_t)$와 $V_{\pi}(s_t)$와의 관계는 다음과 같다.
 
-$$V_{\pi}(s_t)=\sum_{a_t \in \mathcal{A}}{\pi(a_t \vert s_t) q_{\pi}(s_t,a_t)} .$$ (6)
+$$V_{\pi}(s_t)=\sum_{a_t \in \mathcal{A}}{\pi(a_t \vert s_t) Q_{\pi}(s_t,a_t)} .$$ (6)
 
 즉, 모든 action에 대해서 policy와 Q-함수의 곱이 곧 최종 가치함수화 동일하다. 이 관계를 식(5)에 대입해서 특정 action에 대한 Q-함수의 값을 표현하면 다음과 같다.
 
-$$\begin{align} q_{\pi}(s,a) &= \mathbb{E}_{\pi}[G_t\vert S_t=s, A_t=a] \\
+$$\begin{align} Q_{\pi}(s,a) &= \mathbb{E}_{\pi}[G_t\vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma{R_{t+2}}+\gamma^2{R_{t+3}}\cdots \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma \left( {R_{t+2}}+\gamma{R_{t+3}}\cdots \right) \vert S_t=s, A_t=a] \\
 &= \mathbb{E}_{\pi}[R_{t+1}+\gamma  G_{t+1} \vert S_t=s, A_t=a] \\
-&= \mathbb{E}_{\pi}[R_{t+1}+\gamma  q_{\pi}(S_{t+1},A_{t+1})  \vert S_t=s, A_t=a] \\
+&= \mathbb{E}_{\pi}[R_{t+1}+\gamma  Q_{\pi}(S_{t+1},A_{t+1})  \vert S_t=s, A_t=a] \\
 \end{align}.$$(7)
 
 # Reinforcement Learning API
