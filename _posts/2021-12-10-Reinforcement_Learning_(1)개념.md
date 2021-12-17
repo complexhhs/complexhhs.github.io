@@ -30,7 +30,7 @@ RL의 기본 요소들은 위 그림에서 보이는 관계도를 그리고 있�
 - State: $s_t$
 - State transition probability matrix: $P_{ss'}^{a}$
 - Reward: $R_s^a=\mathbb{E}[R_{t+1} \vert S=s_t, A=a_t]$
-- Discount factor: $\gamma \in [0,1]$ 
+- Discount factor: $\gamma \in [0,1)$ 
 
 Action과 State에서 $t$는 몇회차때의 행동인지 나타내는 인덱스를 가리키는 것으로 설명을 줄인다. Reward는 위와 같이 표현하는데, t회차때의 state와 action을 취해지면 다음 차시에서 environment가 reward값을 제공하므로 $R_s^a$는 t+1차시때의 reward값의 기대값으로 이야기 하는 것이다. $P_{ss'}^{a}$는 agent가 현재 state($s$)상황에서 action($a$)을 취하면 환경이 다음 state($s'$)로 바뀌는 확률을 가리킨다. 이상적인 상황에서 environment의 모든 요소하나하나 다 알고있다면 $P_{ss'}^{a}$의 모든 값들을 파악 할 수 있지만 실질적으로는 그렇기에는 까다로운 부분과 굳이 생각하지 않아도 되는 경우들이 있다. 따라서 앞으로 우리가 마주할 문제는 대다수 $P_{ss'}^{a}$값이 1이라고 고정시켜놓고 봐도 무방할 것이다. 마지막으로 Discount factor $\gamma$는 현재의 $R_{t}$의 가치와 미래의 $R_{t+1}$ 가치를 구분시켜주는 요소이다. 직관적으로 생각하면 지금 바로 100만원의 보상을 받는 것과 10년뒤 미래에 100만원을 받는 것은 그 가치에 대한 차이가 확연히 나는것과 같은 이치다(할인율). 다시 말하자면, 100만원이라는 것이 10년의 시간이 흐름에 따라 가치가 상실하고, 그 상실한 가치의 비율이 바로 $\gamma$값이다.
 
