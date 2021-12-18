@@ -150,7 +150,7 @@ SARSA의 알고리즘처럼 우선 Off-policy Q-learning의 알고리즘 단계�
  # Example: Cliff walking
  ---
  
- ![Cliff-walking-images]()
+ ![60776324-549fb680-a166-11e9-9134-a67fdcbd37dc](https://user-images.githubusercontent.com/40904225/146641759-197d4a84-b8ad-47c8-a266-7bfd8fc0476a.png)
  
  '절벽 걷기'라는 재미있는 이름이 붙여진 문제는 역시 David silver교수님의 RL강의에서 나온 문제다. 위 그림처럼 agent가 이동을 개시하고 목표지점까지 최단경로로 이동하도록 학습하는 목표의 RL문제인데 'Cliff'라고 표현된 부분으로 이동하면 패널티를 받으며 에피소드가 종료된다. 이제 우리가 배운 TD prediction방식, SARSA와 Off policy Q-learning을 이용해서 agent를 최대한 빠르게 목표지점까지 도달 할 수 있도록 학습시켜보도록 하자.
  
@@ -428,7 +428,7 @@ for it in range(5000):
         plt.show()
 ```
 
-![total_reward_result]()
+![SARSA_Q_learning](https://user-images.githubusercontent.com/40904225/146641725-66420e37-4f93-40ac-9653-273f81480894.png)
 
 결과 그래프를 보면 제 아무리 agent가 환경에 대해서 학습을 했다고해도 자신이 모르고 있다는 부분을 인정하고 학습하는 Off-policy Q-learning 전략보다, On-policy SARSA 결과가 더 좋게 나옴을 확인 할 수 있었다.
 
