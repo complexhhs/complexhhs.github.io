@@ -31,11 +31,9 @@ $$V_{k+1}(s) = \sum_{a \in \mathcal{A}}{\pi (a \vert s)} \left\{R_{s}^{a}+\gamma
  
  $$\pi'=greedy(V_{\pi}).$$(2)
 
-이제 *Policy evaluation*과 *Policy iteration*의 관계를 그림으로 나타내면 다음과 같다.
+이제 *Policy evaluation*과 *Policy iteration*의 관계를 그림으로 나타내면 다음과 같다(David silver 교수님 강의자료 첨부)
 
-![policy update]()
-
-![policy-value relation]()
+![MC8](https://user-images.githubusercontent.com/40904225/146674433-787f230e-aeef-492c-90a7-17dae10ee122.png)
 
 # Monte-Carlo prediction & Temporal Difference prediction
 ---
@@ -61,7 +59,7 @@ $$V_{k+1}(s) = \sum_{a \in \mathcal{A}}{\pi (a \vert s)} \left\{R_{s}^{a}+\gamma
  
  식 (2)가 도달되는 과정을 그림으로 표현하면 다음과 같다.
  
-![MC backup diagram]()
+![그림1](https://user-images.githubusercontent.com/40904225/146674443-9c5be256-53a7-4557-9c4c-d0d9a86ff716.png)
 
 그림을 통해서 Value-function과 Q-function간의 관계를 유심히 살펴보면 $G_t$가 종료되는 시점(네모 사각형)이 분명히 존재하지만 매 차시의 $a$이 "임의로 선택"된다. 여기서 "임의로 선택"된다는 점이 상당히 꺼림직하다. 그 이유는 1) Value-function을 구하는 과정에서 ***Model-based***방식이 필요와 2) Value-function의 부재로 인한 Policy iteration이 매끄럽지 못하다는 점이다. 
 여기서 잠시만 Bellman optimality equation에서 Optimal policy, $\pi_{*}$를 구하는 수식을 복기해보자.
@@ -91,14 +89,14 @@ Monte-Carlo 방식의 특성상 $G_t$를 구하는 과정에서 최종 state까�
 $$\begin{align} V(s_t) &\leftarrow V(s_t) + \alpha \left \{ R_{t+1}+\gamma V(S_{t+1}) - V(s_t) \right \}\\
 . \end{align}$$ (6)
 
-![TD_error_1step_diagram]()
+![그림2](https://user-images.githubusercontent.com/40904225/146674508-535d338b-167e-4d4d-90e7-b74f01606b97.png)
 
 식 (6)처럼 Value-funcction의 업데이트 관계식을 표현할수 있는 이유는 DP관계식의 기대값을 샘플링 한 방식이기 때문이다. 이제 Value-function이 업데이트 하려는 목표(target)와 최소화 시켜야 하는 목적함수 Temporal Difference error, TD error는 식 (6)에서 표현하는 다음 항들이다. 
 
 - $Target: R_{t+1}+\gamma V(s_{t+1})$
 - $TD error: R_{t+1}+\gamma V(s_{t+1}) - V(s_t)$
 
-![Td_error_kstep_diagram]()
+![그림3](https://user-images.githubusercontent.com/40904225/146674511-14509e74-0160-4ef9-b5e9-6eb399774caa.png)
 
 실질적으로 프로그래밍을 할때 TD-error 업데이트 과정이 매 순간마다 업데이트를  불 필요할 정도로 많이 수행하는데 부담이 있기에 Value function을 몇 스텝 뒤로 미루어 아래와 같이 계산을 할 수도 있다. 이 적정 스텝($n$)은 실용적인 부분이므로 문제를 해결하는 사람이 적절히 고려해서 풀어야할 부분이다. 
 
@@ -186,7 +184,7 @@ for t in range(t_max): # 매 에피소드마다 무한정 반복할수 없으니
 ```
  위 코드 블럭의 <구현 필!>이라고 표현한 부분만 우리가 구현하면 된다. SARSA방식과, Off policy Q-learning에 맞도록 action을 추출하고 Q-function을 업데이트 하는 학습을 각각 구현하는데 치중하자. 추가로 코드블럭에 ```t_max```변수를 추가시켜서 무한정으로 하나의 에피소드에서 오랫동안 갇혀있는 상황을 방지하였다는 점을 인지하기 바란다. 
  
-다음 단계로 SARSA, Off-policy agent를 디자인하는 블록이다. ```get_value```를 이용해 TD target삼는 부분에 유의하기 바란다. SARSA와 Off-policy방식의 결정적인 차이로 해당부분만 고려하면 된다. 먼저 SARSA agent이다.
+다음 단계로 SARSA, Off-policy agent를 디자인하는 블록이다. ```get_value```를 이용해 TD target삼는 부분에 유의하기 바란다. SARSA와 Off-policy방식의 결정적인 차이로 해당부분만 고려하면 된다. 먼저 SARSA agent이다. 코드블럭의 입력인자에 대한 주석을 음미하길 바란다.
 ```python
 class SARSA_agent():
     def __init__(self,alpha=0.25,epsilon=0.2,gamma=0.99,possible_actions=range(n_actions)):
@@ -284,7 +282,7 @@ class SARSA_agent():
         return state_value
 ```
 
-다음은 Off-policy agent이다
+다음은 Off-policy agent이다. 역시 주석부분을 음미하길 바란다.
 ```python
 class Off_Q_agent():
     def __init__(self,alpha=0.25,epsilon=0.2,gamma=0.99,possible_actions=range(n_actions)):
@@ -465,4 +463,4 @@ def agent_playing(env,agent,t_max=10**4):
 agent_playing(env,agent_SARSA) # 혹은 agent_playing(env,agent_Q_learning)
 ```
 
-해당 튜토리얼 코드 전 부분은 [링크](https://github.com/complexhhs/ML_basic_concept/blob/main/Cliff_walking_tutorial.ipynb)를 통해 확인해주기 바란다. 다음 포스팅에서는 Neural network를 이용해서 환경의 정보를 학습하는 전략인 DQN을 리뷰 및 정리해보도록 하겠다. 
+해당 튜토리얼 코드 전 부분은 [링크](https://github.com/complexhhs/ML_basic_concept/blob/main/Cliff_walking_tutorial.ipynb)를 통해 확인해주기 바란다. 다음 포스팅에서는 테이블 형태의 $s$를 넘어서 연속적인 $s$에 대해서 어떻게 문제를 풀지 그 전략을 살펴보겠다. 
