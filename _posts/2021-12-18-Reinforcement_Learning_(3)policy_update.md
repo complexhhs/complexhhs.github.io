@@ -53,13 +53,13 @@ $$V_{k+1}(s) = \sum_{a \in \mathcal{A}}{\pi (a \vert s)} \left\{R_{s}^{a}+\gamma
  식 (1)의 기대값 부분을 (지금 단계에선 $a$를 구체적으로 생각하지 말고)  샘플링을 통해서 agent가 더 이상 $a$를 취할 수 없는 종료시점$(M)$까지 도달했다고 가정해보자. 
  
  $$\begin{align} V_{M}(s) &\approx \frac{1}{M} {\sum_{i=1}^{M}{G_i}} \\
- &= \frac{1}{M} \left( G_M + {\sum_{i=1}^{M-1}{G_i}} \right) \\
- &= \frac{1}{M} \left \{ G_M + (M-1)V_{M-1}(s) \right \} \\
- &= V_{M-1}(s) + \frac{1}{M} \left \{  G_{M}-V_{M-1}(s)  \right \}  \end{align}.$$(2)
+ &\approx \frac{1}{M} \left( G_M + {\sum_{i=1}^{M-1}{G_i}} \right) \\
+ &\approx \frac{1}{M} \left \{ G_M + (M-1)V_{M-1}(s) \right \} \\
+ &\approx V_{M-1}(s) + \frac{1}{M} \left \{  G_{M}-V_{M-1}(s)  \right \}  \end{align}.$$(2)
  
  식 (2)가 도달되는 과정을 그림으로 표현하면 다음과 같다.
  
-![그림1](https://user-images.githubusercontent.com/40904225/146674443-9c5be256-53a7-4557-9c4c-d0d9a86ff716.png)
+![그림4](https://user-images.githubusercontent.com/40904225/146674619-a0ba9c0e-9a1c-4de2-916b-62e147535523.png)
 
 그림을 통해서 Value-function과 Q-function간의 관계를 유심히 살펴보면 $G_t$가 종료되는 시점(네모 사각형)이 분명히 존재하지만 매 차시의 $a$이 "임의로 선택"된다. 여기서 "임의로 선택"된다는 점이 상당히 꺼림직하다. 그 이유는 1) Value-function을 구하는 과정에서 ***Model-based***방식이 필요와 2) Value-function의 부재로 인한 Policy iteration이 매끄럽지 못하다는 점이다. 
 여기서 잠시만 Bellman optimality equation에서 Optimal policy, $\pi_{*}$를 구하는 수식을 복기해보자.
