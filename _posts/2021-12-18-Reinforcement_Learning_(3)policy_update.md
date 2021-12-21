@@ -144,8 +144,8 @@ SARSA와의 차이점으로 TD target부분을 주목하면 되겠다. TD target
  
  이제 TD prediction으로 재미있는 문제를 살펴보도록하자.
  
- # Example: Cliff walking
- ---
+# Example: Cliff walking
+---
  
  ![60776324-549fb680-a166-11e9-9134-a67fdcbd37dc](https://user-images.githubusercontent.com/40904225/146641759-197d4a84-b8ad-47c8-a266-7bfd8fc0476a.png)
  
