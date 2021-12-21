@@ -123,7 +123,7 @@ $$Q(s_{t},a_{t}) \leftarrow Q(s_{t},a_{t}) + \alpha \left \{ R_{t+1}+\gamma Q(s_
 2. ***Epsilon-greedy*** 방식을 도입해 $a$를 취한다.
 3. $a$로부터 $s', R$을 관찰한다.
 4. ***Epsilon-greedy*** 방식을 도입해 $s'$로 부터 $a'$를 취한다. 
-5. $Q(s,a)\leftarrow{Q(s,a)}+\alpha\left\{R+\gamma{Q(s',a')}-Q(s,a)\right\}$
+5. Q-업데이트, $Q(s,a)\leftarrow{Q(s,a)}+\alpha\left\{R+\gamma{Q(s',a')}-Q(s,a)\right\}$
 6. $s \leftarrow s'$, $a \leftarrow a'$ 로 업데이트
 7. Step 3-6까지 반복
  
@@ -136,7 +136,7 @@ SARSA의 알고리즘처럼 우선 Off-policy Q-learning의 알고리즘 단계�
  
 1. 모든 $s,a$에 대해 Q-function을 초기화 한다.
 2. ***Epsilon-greedy*** 방식을 도입해 $a$를 취하고, $a$로부터 $s', R$을 관찰한다. 
-3. $Q(s,a)\leftarrow{Q(s,a)}+\alpha\left\{R+\gamma\text{max}_{a}Q(s',a)-Q(s,a)\right\}$
+3. Q-업데이트, $Q(s,a)\leftarrow{Q(s,a)}+\alpha\left\{R+\gamma\text{max}_{a}Q(s',a)-Q(s,a)\right\}$
 4. $s \leftarrow s'$로 업데이트
 5. Step 2-4까지 반복
  
