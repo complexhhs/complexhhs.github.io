@@ -9,7 +9,7 @@ tags: [documentation,sample]
 # Introduction
 ---
 
-RL기본기부터 시작해서 어느 덧 다섯번째 포스팅까지 오게 되었다. 역시나 일종의 시리즈 물을 순서대로 보지 않았다면 계속해서 반복되는 [지난 포스팅]()부터 시작해주길 부탁한다.
+RL기본기부터 시작해서 어느 덧 다섯번째 포스팅까지 오게 되었다. 역시나 일종의 시리즈 물을 순서대로 보지 않았다면 계속해서 반복되는 [지난 포스팅](https://complexhhs.github.io/Reinforcement_Learning_(4)continuous_environment)부터 시작해주길 부탁한다.
 
 드디어 우리는 Grid environement에서 벗어나 연속적인 환경에서도 agent가 $s$를 받아들이고 적절한 $a$를 취할 수 있도록 **neural network**를 적용한 RL문제를 푸는데 성공하였다. 기억하는가? 지난 포스팅의 CartPole문제 알고리즘은 neural network를 이용했지만 큰 줄기로 **Off-policy**방식을 채택했었다. 해당 방식은 TD-error를 optimize시키는 과정에서 exploration의 문제가 이슈되는 만큼 더 개선시킬 여지가 많은 알고리즘이다. 
 
@@ -21,7 +21,8 @@ RL기본기부터 시작해서 어느 덧 다섯번째 포스팅까지 오게 �
 
 DQN[1]은 우리나라에 '머신러닝'의 센세이션을 불러왔던 RL agent 알파고의 토대가 되는 아이디어다. Nature에 등재된 논문에서 Atari-breakout(벽돌깨기)문제를 인간보다 잘 해결해낸 RL agent를 어떻게 만들었는지 그 과정을 살폈는데 지금까지 우리가 공부해온 RL의 개념들이 적용되어있다. **DeepMind**사에서 개발했고 실제로 Atari-breakout을 플레이하는 영상이 [youtube링크](https://www.youtube.com/watch?v=V1eYniJ0Rnk)에 있으니 시청해보기 바란다. 인공지능이 정말, 확실히 게임을 잘한다는 느낌을 지울수 없을 것이다. 본 블로그에서는 Neural network모델을 작성한다던가 Objective function을 구성해서 parameter를 업데이트하는 과정을 빼고 리뷰하지 못했던 부분을 체크하고 넘어가도록 하겠다.
 
-![DQN_algorithm.png](attachment:DQN_algorithm.png)
+!![DQN](https://user-images.githubusercontent.com/40904225/147737734-07c9cf8c-1a27-404f-bde4-e44a6fd88fb4.png)
+
 
 알고리즘 중에서 ***Replay memory***라고 하는 부분이 아마 생소하리라 예상한다. 이 부분은 코딩을 할때 Target으로 삼아야하는 **Target network**와 학습으로 삼아야할 **Main network**를 분리하기 위한 작업이다. 필자는 개인적으로 이 부분이 잘 이해가 가지 않았다. 첫째, ***왜 Replay memory라는 버퍼를 따로 만드는가?*** 그리고 ***왜 Target network와 Main network를 따로 분리하는가?*** 부분이었다. 혹시나 필자와 같은 질문을 가질 독자분들도 계실법하니 이 질문에 대해 대답을 하겠다.
 
@@ -35,7 +36,7 @@ DQN 알고리즘이 개선된 부분은 이 정도로 요약하면 되겠다. �
 # DQN tutorial
 ---
 
-해당 코드는 [Pytorch 튜토리얼 페이지](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)[2]의 내용을 상당부분 발췌했음을 밝힌다. 미리 밝히건대 Pytorch 튜토리얼 페이지도 DQN을 통한 ***CartPole***을 풀고있지만 $s$를 ```gym```에서 제공하는 state가 아닌 화면 자체로 보이는 이미지로 인식을 하고 있다는 점을 밝힌다. 필자의 코드 전 부분을 보고 싶으면 [링크]()를 확인해주기 바란다.
+해당 코드는 [Pytorch 튜토리얼 페이지](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)[2]의 내용을 상당부분 발췌했음을 밝힌다. 미리 밝히건대 Pytorch 튜토리얼 페이지도 DQN을 통한 ***CartPole***을 풀고있지만 $s$를 ```gym```에서 제공하는 state가 아닌 화면 자체로 보이는 (이미지)로 인식을 하고 있다는 점을 밝힌다. 필자의 코드 전 부분을 보고 싶으면 [링크](https://github.com/complexhhs/ML_basic_concept/blob/main/DQN_cartpole.ipynb)를 확인해주기 바란다.
 
 - **알고리즘 구조**
 알고리즘 구조를 만들고 필요한 기능을 채워 넣도록 하자.
@@ -66,17 +67,17 @@ def DQN_train(#<입력인자들은 추후에 채웁시다>):
 DQN의 핵심인 Replay memory를 만드는 구문이다. python의 ```collection```내부의 ```deque```를 이용해서 선입선출(FIFO)을 이용하면 편하다. FIFO란 말은 즉슨, 최대용량을 넘어 원소들이 첨가되면 처음에 들어왔던 원소가 밀려나가 buffer에서 없어짐을 의미한다.
 ```python
 # 메모리 버퍼를 만듭시다. 메모리마다 [s,a,r,s']의 정보를 업데이트
-# 메모리의 최대 용량은 100,000으로 설정 -> 랜덤 샘플링 진행
+# 메모리의 최대 용량은 50,000으로 설정 -> 랜덤 샘플링 진행
 class memory(object):
     '''
     Replay buffer를 준비합니다.
-    특별한 경우를 제외하고는 버퍼의 길이는 100,000으로 초기설정을 놓습니다.
+    특별한 경우를 제외하고는 버퍼의 길이는 50,000으로 초기설정을 놓습니다.
     기능
         1. push: 버퍼의 끝에서부터 원소를 집어넣습니다. 
         2. sample: 샘플링할 크기만큼 버퍼에서 임의의 원소들을 추출합니다.
     '''
-    def __init__(self,capacity=100000):
-        self.memory = deque([],maxlen=100000) 
+    def __init__(self,capacity=50000):
+        self.memory = deque([],maxlen=capacity) 
     def push(self,*args):
         '''
         버퍼의 끝에서부터 원소를 집어넣습니다.
@@ -198,29 +199,24 @@ def target_overlap_main(main_network, target_network,step,overlap_period=10):
 def session_train(env,memory_buffer,main_network,target_network,update_step):
     episode_reward = 0
     s = env.reset() 
-    while True:
-        if len(memory_buffer) < start_memory_length:
-            eps = 1
-        else:
-            eps = get_epsilon_value(update_step)
+    while True:    
         a = main_network.get_action(s,eps)
         new_s, r, done, _ = env.step(a)
         
-        memory_buffer.push([s,a,r,new_s,done]) if eps == 1 else None
+        memory_buffer.push([s,a,r,new_s,done]) 
         
         loss = 0
-        if eps != 1:
+        if len(memory_buffer) >= start_memory_length:
             batch_data = memory_buffer.sample(batch_size)
             loss=DQN_loss_update(main_network, target_network, optimizer, batch_data)
-            update_step += 1
         
-        main_network, target_network = target_overlap_main(main_network, target_network,update_step)
+        main_network, target_network = target_overlap_main(main_network,target_network,update_step)
         s = new_s
         episode_reward += r
         
         if done:
             break
-    return episode_reward, loss, eps
+    return episode_reward, loss
 ```
 
 ```python
@@ -239,35 +235,48 @@ def DQN_train(env,main_network,target_network,optimizer,monitoring=True):
     출력변수
         main_network
     '''
+    global update_step, eps
     episode_rewards, episode_tds, episode_epsilons = [],[],[]
     update_step = 0
+    find = False
+    
     memory_buffer = memory() 
     main_network, target_network = target_overlap_main(main_network, target_network,update_step)
-    for epoch in range(epochs):
+    for epoch in trange(epochs):
+        eps = get_epsilon_value(update_step)
+        episode_epsilons.append(eps)
+        
         for mini in range(mini_sessions):
-            episode_reward, loss, eps = session_train(env,memory_buffer,main_network,target_network,update_step)
-            episode_rewards.append(episode_reward)
-            episode_tds.append(loss)
-            episode_epsilons.append(eps)
-                          
-            if monitoring:
-                print('Episode',epoch)
-                print('Session reward',np.mean(episode_rewards))
-                print('Epsilon',eps)
-                display_monitoring(np.mean(episode_rewards),np.mean(episode_rewards),np.mean(episode_epsilons))
+            if len(memory_buffer) >= start_memory_length:
+                update_step += 1
+            s_reward, s_loss = session_train(env,memory_buffer,main_network,target_network,update_step)
+            episode_rewards.append(s_reward)
+            episode_tds.append(s_loss)
+            if np.max(episode_rewards) >= env._max_episode_steps*0.7:
                 clear_output(True)
+                print(f'Agent got solution! Final reward: {s_reward}, at epoch:{epoch}')
+                display_monitoring(episode_rewards,episode_tds,episode_epsilons)
+                find = True
                 break
-    
-        if episode_reward >= env._max_episode_steps*0.95:
-            clear_output(True)
-            print(f'Agent got solution! Final reward: {episode_reward}, at epoch:{epoch}')
-            display_monitoring(np.mean(episode_rewards),np.mean(episode_rewards),np.mean(episode_epsilons))
+        if find:
             break
+                          
+        if monitoring:
+            clear_output(True)
+            print('Episode',epoch)
+            print('Epsilon',eps)
+            display_monitoring(episode_rewards,episode_tds,episode_epsilons)
+            
     return main_model
 ```
 
-결과를 모니터링 해봅시다.
+결과를 모니터링 해보자.
 
+![다운로드 (1)](https://user-images.githubusercontent.com/40904225/147738152-ffc4238c-633b-485a-9199-029a56599345.png)
+
+필자는 매 에피소드마다 100번의 세션을 부가하여 학습을 진행했다. 모든 세션에 대해서 학습되는 추이를 보면 $R$ plot은 400째 세션까지는 학습을 안하고 메모리에 임의의 $a$에 대한 경험을 부여하고 학습이 시작되는 구간부터 점차 $R$가 상승하는 구간이 나오더니 한 순간 최대 episode가 나오는것을 확인했다. 이 정도 학습했으면 agent는 충분히 학습을 완료했으리라고 판단하고 학습을 종료하였다. 10번의 에피소드 즈음 학습이 완료되어 상당히 오랜시간동안 Cart가 쓰러지지 않고 버티는 agent의 성능을 확인할 수 있다. 독자들도 코드 전문을 구현해보고 스스로 agent를 만들어 보기바란다. 상당히 재미있다.
+
+다음 포스팅에서는 *Atari-breakout*을 DQN으로 구현해보겠다. 이론도 중요하지만 코딩도 못지않게 중요하니 머리를 식힌다는 개념으로 다음 포스팅까지만 쉬어가자.
 
 # Reference
 
